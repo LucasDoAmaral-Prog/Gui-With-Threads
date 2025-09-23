@@ -49,17 +49,19 @@ O projeto segue princípios de **Clean Architecture** com separação clara de r
       <sub>1 Developer</sub>
     </td>
     <td align="center">
-      <img src="https://github.com/usuario2.png" width="80px;"/><br/>
+      <img src="https://github.com/LucasDoAmaral-Prog.png" width="80px;"/><br/>
+      <img src="https://github.com/julia-iozzi.png" width="80px;"/><br/>
       <sub><b>Background & Animação</b></sub><br/>
       <sub>2 Developers</sub>
     </td>
     <td align="center">
-      <img src="https://github.com/usuario3.png" width="80px;"/><br/>
+      <img src="https://github.com/cleobueno.png" width="80px;"/><br>
+      <img src="https://github.com/DudaBertole.png" width="80px;"/><br>
       <sub><b>Lógica de Arquivos</b></sub><br/>
       <sub>2 Developers</sub>
     </td>
     <td align="center">
-      <img src="https://github.com/usuario4.png" width="80px;"/><br/>
+      <img src="https://github.com/jpmamede.png" width="80px;"/><br/>
       <sub><b>Ajuda & Documentação</b></sub><br/>
       <sub>1 Developer</sub>
     </td>
