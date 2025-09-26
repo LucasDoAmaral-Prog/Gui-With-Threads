@@ -4,27 +4,25 @@ import com.presentation.controller.MenuController;
 import javax.swing.*;
 
 /**
- * Visualização da barra de menu da aplicação
+ * View da barra de menu - wrapper para o MenuController
  */
 public class MenuBarView {
     
     private final MenuController menuController;
-    private JMenuBar menuBar;
     
     public MenuBarView(MenuController menuController) {
         this.menuController = menuController;
-        this.menuBar = menuController.getMenuBar();
     }
     
     /**
-     * Retorna a barra de menu
+     * Obtém a barra de menu
      */
     public JMenuBar getMenuBar() {
-        return menuBar;
+        return menuController.getMenuBar();
     }
     
     /**
-     * Atualiza o estado da barra de menu
+     * Atualiza o estado do menu
      */
     public void updateMenuState() {
         menuController.updateMenuState();

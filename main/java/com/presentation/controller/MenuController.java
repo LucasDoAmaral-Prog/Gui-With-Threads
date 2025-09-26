@@ -14,6 +14,11 @@ public class MenuController {
     private final FileController fileController;
     private JMenuBar menuBar;
     
+    // === REFERÊNCIAS DIRETAS DOS ITENS DE MENU ===
+    private JMenuItem openFileItem;
+    private JMenuItem closeFileItem;
+    private JMenuItem exitItem;
+    
     public MenuController(FileController fileController) {
         this.fileController = fileController;
         initializeMenu();
@@ -36,16 +41,16 @@ public class MenuController {
         JMenu fileMenu = new JMenu(MenuConstants.MENU_FILE_TITLE);
         fileMenu.setMnemonic(KeyEvent.VK_A); // Alt + A para abrir o menu
         
-        // Item: Abrir Arquivo
-        JMenuItem openItem = createMenuItem(
+        // Item: Abrir Arquivo - GUARDA REFERÊNCIA
+        openFileItem = createMenuItem(
             MenuConstants.MENU_FILE_OPEN, 
             KeyEvent.VK_A, 
             KeyStroke.getKeyStroke(KeyEvent.VK_O, ActionEvent.CTRL_MASK),
             e -> fileController.openFile()
         );
         
-        // Item: Fechar Arquivo
-        JMenuItem closeItem = createMenuItem(
+        // Item: Fechar Arquivo - GUARDA REFERÊNCIA
+        closeFileItem = createMenuItem(
             MenuConstants.MENU_FILE_CLOSE, 
             KeyEvent.VK_F, 
             KeyStroke.getKeyStroke(KeyEvent.VK_W, ActionEvent.CTRL_MASK),
@@ -55,8 +60,8 @@ public class MenuController {
         // Separador
         JSeparator separator = new JSeparator();
         
-        // Item: Sair
-        JMenuItem exitItem = createMenuItem(
+        // Item: Sair - GUARDA REFERÊNCIA
+        exitItem = createMenuItem(
             MenuConstants.MENU_FILE_EXIT, 
             KeyEvent.VK_S, 
             KeyStroke.getKeyStroke(KeyEvent.VK_Q, ActionEvent.CTRL_MASK),
@@ -64,8 +69,8 @@ public class MenuController {
         );
         
         // Adiciona os itens ao menu
-        fileMenu.add(openItem);
-        fileMenu.add(closeItem);
+        fileMenu.add(openFileItem);
+        fileMenu.add(closeFileItem);
         fileMenu.add(separator);
         fileMenu.add(exitItem);
         
@@ -74,7 +79,7 @@ public class MenuController {
     }
     
     /**
-     * Cria o menu Configuração (tá com outras opções só para simular)
+     * Cria o menu Configuração (placeholder)
      */
     private void createConfigurationMenu() {
         JMenu configMenu = new JMenu(MenuConstants.MENU_CONFIG_TITLE);
@@ -84,7 +89,7 @@ public class MenuController {
         JMenuItem patternsItem = createMenuItem(
             MenuConstants.MENU_CONFIG_PATTERNS, 
             KeyEvent.VK_P, 
-            null, // Sem atalho por enquanto
+            null,
             e -> showNotImplementedDialog("Configuração de Padrões")
         );
         
@@ -104,17 +109,15 @@ public class MenuController {
             e -> showNotImplementedDialog("Configuração de Velocidade")
         );
         
-        // Adiciona os itens ao menu
         configMenu.add(patternsItem);
         configMenu.add(colorsItem);
         configMenu.add(speedItem);
         
-        // Adiciona o menu à barra de menu
         menuBar.add(configMenu);
     }
     
     /**
-     * Cria o menu Ajuda (só para simular)
+     * Cria o menu Ajuda (placeholder)
      */
     private void createHelpMenu() {
         JMenu helpMenu = new JMenu(MenuConstants.MENU_HELP_TITLE);
@@ -124,7 +127,7 @@ public class MenuController {
         JMenuItem helpItem = createMenuItem(
             MenuConstants.MENU_HELP_HELP, 
             KeyEvent.VK_A, 
-            KeyStroke.getKeyStroke(KeyEvent.VK_F1, 0), // F1 para ajuda
+            KeyStroke.getKeyStroke(KeyEvent.VK_F1, 0),
             e -> showNotImplementedDialog("Ajuda")
         );
         
@@ -136,19 +139,20 @@ public class MenuController {
             e -> showNotImplementedDialog("Sobre")
         );
         
-        // Adiciona os itens ao menu
         helpMenu.add(helpItem);
         helpMenu.add(aboutItem);
         
-        // Adiciona o menu à barra de menu
         menuBar.add(helpMenu);
     }
     
+    /**
+     * Mostra diálogo para funcionalidades não implementadas
+     */
     private void showNotImplementedDialog(String feature) {
         JOptionPane.showMessageDialog(
             null,
-            "A parte de '" + feature + "' ainda não foi implementada :(.",
-            "Funcionalidade não implementada",
+            String.format(MenuConstants.MESSAGE_NOT_IMPLEMENTED, feature),
+            MenuConstants.TITLE_NOT_IMPLEMENTED,
             JOptionPane.INFORMATION_MESSAGE
         );
     }
@@ -174,19 +178,15 @@ public class MenuController {
     }
     
     /**
-     * Atualiza o estado dos itens de menu baseado no estado da aplicação
+     * Atualiza o estado dos itens de menu - USA REFERÊNCIAS DIRETAS
      */
     public void updateMenuState() {
         SwingUtilities.invokeLater(() -> {
             boolean hasOpenFile = fileController.hasOpenFile();
             
-            // Encontra o item "Fechar Arquivo" e atualiza seu estado
-            JMenu fileMenu = menuBar.getMenu(0); // Menu Arquivo é o primeiro 
-            if (fileMenu != null && fileMenu.getItemCount() > 1) {
-                JMenuItem closeItem = fileMenu.getItem(1); // "Fechar Arquivo" é o segundo item
-                if (closeItem != null) {
-                    closeItem.setEnabled(hasOpenFile);
-                }
+            // ✅ SOLUÇÃO ROBUSTA: Usa referência direta
+            if (closeFileItem != null) {
+                closeFileItem.setEnabled(hasOpenFile);
             }
         });
     }
