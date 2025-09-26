@@ -1,4 +1,4 @@
-package com.basicgui;
+package com.main;
 
 import javax.swing.*;
 import com.presentation.view.AnimatedBackgroundPanel;
