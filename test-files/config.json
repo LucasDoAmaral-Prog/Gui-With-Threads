@@ -1,0 +1,18 @@
+{
+  "nome": "Arquivo JSON de Teste",
+  "descricao": "Este é um arquivo JSON para testar a leitura de diferentes tipos de arquivo",
+  "dados": {
+    "versao": "1.0",
+    "autor": "Sistema de Teste",
+    "funcionalidades": [
+      "Leitura de JSON",
+      "Exibição de conteúdo",
+      "Validação de tipos"
+    ]
+  },
+  "configuracoes": {
+    "encoding": "UTF-8",
+    "formato": "JSON",
+    "tamanho_limite": "5MB"
+  }
+}

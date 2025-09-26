@@ -1,0 +1,1 @@
+/* Mexer aqui depois, se eu for querer ler .md e .pdf, que exige processamento */
