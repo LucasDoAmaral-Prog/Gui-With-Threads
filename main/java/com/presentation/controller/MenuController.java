@@ -10,6 +10,7 @@ import com.presentation.dialog.help.AboutDialog;
 import com.presentation.dialog.help.HelpDialog;
 import com.presentation.shared.constants.UIConstants;
 import com.presentation.shared.constants.MenuConstants;
+import com.presentation.shared.exception.DirectoryNotFoundException;
 import com.presentation.shared.exception.FileReadException;
 
 import javax.swing.*;
@@ -76,30 +77,14 @@ public class MenuController implements ActionListener {
         }
     }
 
-    private void handleOpenFile() {
-        OpenFileDialog dialog = new OpenFileDialog(parentFrame);
-        dialog.setVisible(true);
-
-        if (dialog.isFileOpened()) {
-            updateStatusBar(UIConstants.STATUS_FILE_OPENED);
-        }
+    private void handleOpenFile() throws IOException, FileReadException, DirectoryNotFoundException {
+        FileController controller = new FileController();
+        MainController.displayOnMainArea(controller.openFile());
+        updateStatusBar(UIConstants.STATUS_FILE_OPENED);
     }
 
     private void handleCloseFile() {
-        OpenFileDialog dialog = new OpenFileDialog(parentFrame);
-        dialog.setVisible(true);
 
-        if (dialog.isFileOpened()) {
-            File selectedFile = dialog.getSelectedFile();
-            FileController fileController = new FileController();
-            try {
-                String content = fileController.openFile(selectedFile);
-                updateStatusBar(UIConstants.STATUS_FILE_OPENED);
-                System.out.println(content); // ou exibir na interface
-            } catch (IOException | FileReadException ex) {
-                handleException(ex);
-            }
-        }
     }
 
     private void handleExit() {

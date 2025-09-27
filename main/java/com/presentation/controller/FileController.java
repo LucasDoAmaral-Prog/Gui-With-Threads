@@ -28,48 +28,38 @@ public class FileController {
 
     }
 
-    private void showDirectoryNotFoundMessage(DirectoryNotFoundException e) {
-        String message = String.format(
-                "Test folder not found: %s%n" +
-                        "File dialog will open in: %s%n%n" +
-                        "To use the test folder, create: %s",
-                e.getRequestedDirectory(),
-                e.getFallbackDirectory(),
-                e.getRequestedDirectory()
-        );
 
+    public String openFile() throws IOException, FileReadException, DirectoryNotFoundException {
+        FileChooserManager fileChooser = new FileChooserManager();
+        File selectedFile = null;
+
+        try {
+            selectedFile = fileChooser.openFileDialog();
+        } catch (DirectoryNotFoundException e) {
+            showDirectoryNotFoundMessage(e);
+        }
+
+        if (selectedFile != null) {
+            if (fileValidator.validateFile(selectedFile)) {
+                String content = fileReader.readFile(selectedFile);
+                this.currentFile = selectedFile;
+
+                return content;
+            } else {
+                throw new IOException("Invalid file type. Please select a .txt file.");
+            }
+        } else {
+            throw new IOException("No file selected.");
+        }
+    }
+
+    private void showDirectoryNotFoundMessage(DirectoryNotFoundException e) {
         JOptionPane.showMessageDialog(
                 null,
-                message,
-                "Test Directory Not Found",
-                JOptionPane.INFORMATION_MESSAGE
+                "Erro ao acessar o diretório inicial: " + e.getMessage(),
+                "Diretório Não Encontrado",
+                JOptionPane.ERROR_MESSAGE
         );
-    }
-
-    public void setMenuController(com.presentation.controller.MenuController menuController) {
-        this.menuController = menuController;
-    }
-
-    public String openFile(File selectedFile) throws IOException, FileReadException {
-        if (selectedFile == null) throw new IllegalArgumentException("Arquivo não selecionado.");
-        fileValidator.validateFile(selectedFile); // supondo que existe
-        String content = fileReader.readFile(selectedFile); // supondo que existe
-
-        if (fileDisplayPanel != null) {
-            fileDisplayPanel.displayContent(content, selectedFile.getName());
-        }
-
-        this.currentFile = selectedFile;
-
-        if (menuController != null) {
-            menuController.updateStatusBar("Abrindo arquivo: " + selectedFile.getName());
-        }
-
-        // Mostra mensagem de sucesso (pode ser log ou JOptionPane, dependendo do seu contexto)
-        showMessage("Arquivo aberto com sucesso: " + selectedFile.getName(),
-                "Sucesso", JOptionPane.INFORMATION_MESSAGE);
-
-        return content; // retorna o conteúdo para uso posterior
     }
 
 //    public void closeFile() {

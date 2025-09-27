@@ -15,7 +15,7 @@ import java.awt.event.WindowEvent;
 public class MainController extends JFrame {
 
     private MenuController menuController;
-    private JTextArea mainArea;
+    private static JTextArea mainArea;
     private JLabel statusBar;
     private JMenuBar menuBar;
 
@@ -24,6 +24,7 @@ public class MainController extends JFrame {
         setupWindow();
         createMenus();
         layoutComponents();
+
     }
 
     // Inicializa os componentes da interface - Main Area (com scroll), Status Bar e Menu
@@ -191,6 +192,14 @@ public class MainController extends JFrame {
 
     public void setMainAreaContent(String content) {
         mainArea.setText(content);
+    }
+
+    /**
+     * Exibe um texto na área principal da aplicação.
+     * @param text O texto a ser exibido.
+     */
+    public static void displayOnMainArea(String text) {
+        mainArea.setText(text);
     }
 
     public String getMainAreaContent() {

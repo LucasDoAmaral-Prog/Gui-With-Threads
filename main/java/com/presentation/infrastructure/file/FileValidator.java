@@ -7,7 +7,7 @@ import java.io.File;
 
 public class FileValidator {
     
-    public void validateFile(File file) throws FileReadException {
+    public boolean validateFile(File file) throws FileReadException {
         if (file == null) {
             throw new FileReadException("No file was selected.");
         }
@@ -27,6 +27,7 @@ public class FileValidator {
         validateFileSize(file);
         
         validateFileExtension(file);
+        return true;
     }
     
     private void validateFileSize(File file) throws FileReadException {

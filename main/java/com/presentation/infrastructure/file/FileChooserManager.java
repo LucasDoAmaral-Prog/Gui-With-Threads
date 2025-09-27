@@ -1,71 +1,69 @@
 package com.presentation.infrastructure.file;
 
-import com.presentation.shared.constants.FileConstants;
 import com.presentation.shared.exception.DirectoryNotFoundException;
+
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.io.File;
 
+/**
+ * Gerencia a exibição e a lógica do seletor de arquivos (JFileChooser).
+ * Encapsula a configuração e a interação com o usuário para selecionar um arquivo.
+ */
 public class FileChooserManager {
-    
-    private JFileChooser fileChooser;
-    
-    public FileChooserManager() throws DirectoryNotFoundException {
-        initializeFileChooser();
+
+    /**
+     * Construtor padrão.
+     */
+    public FileChooserManager() {
+        // Nenhuma inicialização especial é necessária aqui.
     }
-    
-    private void initializeFileChooser() throws DirectoryNotFoundException {
-        fileChooser = new JFileChooser();
-        setupFileFilters();
-        setupChooserProperties();
-    }
-    
-    private void setupFileFilters() {
-        // filtro para arquivos de texto usando as constantes
-        FileNameExtensionFilter textFilter = new FileNameExtensionFilter(
-            FileConstants.TEXT_FILES_FILTER, 
-            FileConstants.TEXT_EXTENSIONS
-        );
-        
-        // filtro para todos os arquivos
-        FileNameExtensionFilter allFilter = new FileNameExtensionFilter(
-            FileConstants.ALL_FILES_FILTER, "*"
-        );
-        
-        fileChooser.addChoosableFileFilter(textFilter);
-        fileChooser.addChoosableFileFilter(allFilter);
-        fileChooser.setFileFilter(textFilter); 
-    }
-    
-    private void setupChooserProperties() throws DirectoryNotFoundException {
-        fileChooser.setDialogTitle(FileConstants.CHOOSER_TITLE);
-        setInitialDirectory();
-        fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
-        fileChooser.setMultiSelectionEnabled(false);
-    }
-    
-    private void setInitialDirectory() throws DirectoryNotFoundException {
-        File defaultDir = new File(FileConstants.DEFAULT_DIRECTORY);
-        
-        if (defaultDir.exists() && defaultDir.isDirectory()) {
-            fileChooser.setCurrentDirectory(defaultDir);
+
+    /**
+     * Abre um diálogo para o usuário selecionar um arquivo.
+     * O diálogo é configurado para aceitar apenas arquivos de texto (.txt).
+     *
+     * @return O objeto File selecionado pelo usuário, ou null se o usuário cancelar a operação.
+     * @throws DirectoryNotFoundException se o diretório inicial padrão (home do usuário) não puder ser encontrado.
+     */
+    public File openFileDialog() throws DirectoryNotFoundException {
+        JFileChooser chooser = new JFileChooser();
+
+        // Tenta definir o diretório inicial como a pasta do usuário
+        // Isso melhora a experiência do usuário.
+        try {
+            String userHome = System.getProperty("user.home");
+            File defaultDir = new File(userHome);
+            if (defaultDir.exists()) {
+                chooser.setCurrentDirectory(defaultDir);
+            } else {
+                // Se o diretório home não existir (caso raro), lança a exceção
+                throw new DirectoryNotFoundException("Diretório inicial do usuário não encontrado: " + userHome);
+            }
+        } catch (SecurityException e) {
+            // Se houver uma restrição de segurança para acessar a propriedade,
+            // o JFileChooser usará seu próprio padrão. Não precisamos parar a execução.
+            System.err.println("Aviso: Não foi possível acessar o diretório home do usuário devido a restrições de segurança.");
+        }
+
+        // Configura o título da janela
+        chooser.setDialogTitle("Abrir Arquivo");
+
+        // Cria e aplica um filtro para mostrar apenas arquivos .txt
+        FileNameExtensionFilter textFilter = new FileNameExtensionFilter("Arquivos de Texto (*.txt)", "txt");
+        chooser.setFileFilter(textFilter);
+        chooser.setAcceptAllFileFilterUsed(false); // Opcional: remove a opção "Todos os Arquivos"
+
+        // Exibe o diálogo para o usuário. O primeiro argumento `null` o centraliza na tela.
+        int result = chooser.showOpenDialog(null);
+
+        // Verifica se o usuário clicou no botão "Abrir"
+        if (result == JFileChooser.APPROVE_OPTION) {
+            // Retorna o arquivo que o usuário selecionou
+            return chooser.getSelectedFile();
         } else {
-            // se o diretório não existir, manda o usuário para o diretório padrão do usuario e lança uam exceção
-            String fallbackDir = System.getProperty("user.home");
-            fileChooser.setCurrentDirectory(new File(fallbackDir));
-            
-            throw new DirectoryNotFoundException(FileConstants.DEFAULT_DIRECTORY, fallbackDir);
+            // Se o usuário cancelou ou fechou a janela, retorna null
+            return null;
         }
-    }
-    
-    public File chooseFile() {
-        int result = fileChooser.showOpenDialog(null);
-        // esse "showOpenDialog" é o que abre a caixa de seleção de texto
-        
-        if (result == JFileChooser.APPROVE_OPTION) { // APPROVE_OPTION -> usuário clicou "Abrir/OK"
-            return fileChooser.getSelectedFile();
-        }
-        
-        return null;
     }
 }
