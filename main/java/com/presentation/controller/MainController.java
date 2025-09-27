@@ -3,11 +3,13 @@ package com.presentation.controller;
 import com.presentation.dialog.file.ExitDialog;
 import com.presentation.shared.constants.MenuConstants;
 import com.presentation.shared.constants.UIConstants;
+import com.presentation.shared.util.UIUtils;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.Objects;
 
 /**
  * Controlador principal da aplicação
@@ -58,17 +60,17 @@ public class MainController extends JFrame {
         try {
             // Tenta carregar o logo da FT
             ImageIcon logo = new ImageIcon(
-                    UIConstants.class.getResource("/FT_logo.jpg")
+                    Objects.requireNonNull(UIConstants.class.getResource(UIConstants.LOGO_PATH))
             );
             if (logo.getIconWidth() > 0) {
                 setIconImage(logo.getImage());
             } else {
                 // Se não conseguir carregar, usa o ícone padrão
-                setIconImage(createDefaultIcon());
+                setIconImage(UIUtils.createDefaultIcon());
             }
         } catch (Exception e) {
             // Se falhar, usa o ícone padrão
-            setIconImage(createDefaultIcon());
+            setIconImage(UIUtils.createDefaultIcon());
         }
 
         // Configura o comportamento de fechamento da janela
@@ -168,41 +170,17 @@ public class MainController extends JFrame {
         }
     }
 
-    // Cria um ícone padrão para a aplicação que será utilizado se a logo personalizada não for encontrada
-    private Image createDefaultIcon() {
-        int size = 32;
-        java.awt.image.BufferedImage icon = new java.awt.image.BufferedImage(size, size, java.awt.image.BufferedImage.TYPE_INT_RGB);
-        Graphics2D g2d = icon.createGraphics();
-        g2d.setColor(Color.magenta);
-        g2d.fillOval(4, 4, size-8, size-8);
-        g2d.setColor(Color.WHITE);
-        g2d.setFont(new Font("Arial", Font.BOLD, 16));
-        g2d.drawString("?", 12, 22);
-        g2d.dispose();
-        return icon;
-    }
 
     public void updateStatusBar(String message) {
         statusBar.setText(message);
+    }
+
+    public static void displayOnMainArea(String text) {
+        mainArea.setText(text);
     }
 
     public static void clearMainArea() {
         mainArea.setText("");
     }
 
-    public void setMainAreaContent(String content) {
-        mainArea.setText(content);
-    }
-
-    /**
-     * Exibe um texto na área principal da aplicação.
-     * @param text O texto a ser exibido.
-     */
-    public static void displayOnMainArea(String text) {
-        mainArea.setText(text);
-    }
-
-    public String getMainAreaContent() {
-        return mainArea.getText();
-    }
 }
