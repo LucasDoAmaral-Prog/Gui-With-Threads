@@ -28,25 +28,15 @@ public abstract class SafeSwingWorker<T, V> extends SwingWorker<T, V> {
         // Override in subclasses
     }
 
-    protected void onError(Throwable error) {
-        // Override in subclasses for error handling
-    }
-
     protected void onInterrupted(InterruptedException e) {
         // Override in subclasses
     }
 
-    protected void onFinally() {
-        // Override in subclasses for cleanup
+    protected void onError(Throwable t) {
+        // Override in subclasses
     }
 
-    public final void executeAsynchronously() {
-        ThreadManager.getInstance().executeInBackground(() -> {
-            try {
-                execute();
-            } catch (Exception e) {
-                LOGGER.log(Level.SEVERE, "Failed to execute SafeSwingWorker", e);
-            }
-        });
+    protected void onFinally() {
+        // Override in subclasses
     }
 }
