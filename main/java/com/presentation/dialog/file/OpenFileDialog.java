@@ -19,7 +19,7 @@ public class OpenFileDialog extends JDialog {
     private boolean fileOpened = false;
 
     public OpenFileDialog(JFrame parent) {
-        super(parent, true); // modal
+        super(parent, "Abrir arquivo", true); // modal
         openFileChooser();   // abre o seletor assim que o diálogo é criado
     }
 

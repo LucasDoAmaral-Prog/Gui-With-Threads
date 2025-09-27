@@ -10,10 +10,13 @@ import com.presentation.dialog.help.AboutDialog;
 import com.presentation.dialog.help.HelpDialog;
 import com.presentation.shared.constants.UIConstants;
 import com.presentation.shared.constants.MenuConstants;
+import com.presentation.shared.exception.FileReadException;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 
 /**
  * Controlador responsável por gerenciar as ações dos menus
@@ -83,12 +86,19 @@ public class MenuController implements ActionListener {
     }
 
     private void handleCloseFile() {
-        CloseFileDialog dialog = new CloseFileDialog(parentFrame);
+        OpenFileDialog dialog = new OpenFileDialog(parentFrame);
         dialog.setVisible(true);
 
-        if (dialog.isConfirmed()) {
-            updateStatusBar(UIConstants.STATUS_FILE_CLOSED);
-            clearMainArea();
+        if (dialog.isFileOpened()) {
+            File selectedFile = dialog.getSelectedFile();
+            FileController fileController = new FileController();
+            try {
+                String content = fileController.openFile(selectedFile);
+                updateStatusBar(UIConstants.STATUS_FILE_OPENED);
+                System.out.println(content); // ou exibir na interface
+            } catch (IOException | FileReadException ex) {
+                handleException(ex);
+            }
         }
     }
 
@@ -134,7 +144,7 @@ public class MenuController implements ActionListener {
     }
 
     // Atualiza a barra de status delegando para a classe principal
-    private void updateStatusBar(String message) {
+    void updateStatusBar(String message) {
         if (parentFrame instanceof MainController) {
             ((MainController) parentFrame).updateStatusBar(message);
         }
@@ -156,4 +166,5 @@ public class MenuController implements ActionListener {
                 JOptionPane.ERROR_MESSAGE);
         ex.printStackTrace();
     }
+
 }
