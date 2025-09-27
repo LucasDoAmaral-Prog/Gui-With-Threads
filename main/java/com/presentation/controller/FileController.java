@@ -4,6 +4,7 @@ import com.presentation.domain.service.FileService;
 import com.presentation.infrastructure.file.FileChooserManager;
 import com.presentation.shared.constants.FileConstants;
 import com.presentation.shared.exception.DirectoryNotFoundException;
+import com.presentation.shared.exception.FileNotSelectedException;
 import com.presentation.shared.exception.FileReadException;
 
 import javax.swing.*;
@@ -19,7 +20,7 @@ public class FileController {
         this.fileService = new FileService();
     }
 
-    public String openFile() throws FileReadException, DirectoryNotFoundException {
+    public String openFile() throws FileReadException, DirectoryNotFoundException, FileNotSelectedException {
         FileChooserManager fileChooser = new FileChooserManager(FileConstants.class.getResource(FileConstants.DEFAULT_DIR_PATH).getPath());
         File selectedFile;
 
@@ -32,7 +33,7 @@ public class FileController {
 
         if (selectedFile == null) {
             showMessage("Operação cancelada: nenhum arquivo foi selecionado.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
-            return null;
+            throw new FileNotSelectedException("Nenhum arquivo foi selecionado.");
         }
 
         try {

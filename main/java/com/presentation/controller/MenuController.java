@@ -214,21 +214,32 @@ public class MenuController extends MenuListener {
             mainView.setStatus(StatusBarConstants.STATUS_FILE_OPENED);
         } catch (Exception e) {
             mainView.setStatus("Error opening file: " + e.getMessage());
-            mainView.setMainAreaText(""); // Optionally clear the area
+            mainView.setMainAreaText("");
+            mainView.setStatus(StatusBarConstants.STATUS_READY);
         }
     }
 
     private void closeFile() {
-        /* substitua o bloco de código a seguir pela lógica do que deve acontecer quando este botão é clicado */
-        String message = "Fechar arquivo selecionado";
-        JOptionPane.showMessageDialog(mainView, message, "Menu Action" , JOptionPane.INFORMATION_MESSAGE);
-        mainView.setStatus(message);
+        mainView.setStatus(StatusBarConstants.STATUS_FILE_CLOSING);
+        mainView.clearMainAreaText();
+        mainView.setStatus(StatusBarConstants.STATUS_READY);
+
     }
     private void exit() {
-        /* substitua o bloco de código a seguir pela lógica do que deve acontecer quando este botão é clicado */
-        String message = "Sair selecionado";
-        JOptionPane.showMessageDialog(mainView, message, "Menu Action" , JOptionPane.INFORMATION_MESSAGE);
-        mainView.setStatus(message);
+        // Opcional: exibe mensagem na barra de status
+        mainView.setStatus(StatusBarConstants.STATUS_EXITING);
+
+        // Opcional: caixa de confirmação
+        int result = JOptionPane.showConfirmDialog(
+                mainView,
+                "Are you sure you want to exit?",
+                "Exit Confirmation",
+                JOptionPane.YES_NO_OPTION
+        );
+        if (result == JOptionPane.YES_OPTION) {
+            System.exit(0); // Encerra a aplicação
+        }
+        mainView.setStatus(StatusBarConstants.STATUS_READY);
     }
     private void configurePatterns() {
         /* substitua o bloco de código a seguir pela lógica do que deve acontecer quando este botão é clicado */
