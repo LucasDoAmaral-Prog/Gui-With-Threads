@@ -53,9 +53,11 @@ public class MenuController extends MenuListener {
             mainView.setMainAreaText(fileContent);
             mainView.setStatus(StatusBarConstants.STATUS_FILE_OPENED);
         } catch (Exception e) {
-            mainView.setStatus("Error opening file: " + e.getMessage());
+            mainView.setStatus(StatusBarConstants.STATUS_ERROR_OPENING_FILE + ": " + e.getMessage());
             mainView.setMainAreaText("");
-            mainView.setStatus(StatusBarConstants.STATUS_READY);
+            new javax.swing.Timer(StatusBarConstants.DELAY_AFTER_ERROR, evt -> {
+                mainView.setStatus(StatusBarConstants.STATUS_READY);
+            }).start();
         }
     }
 
@@ -78,30 +80,35 @@ public class MenuController extends MenuListener {
         }
         mainView.setStatus(StatusBarConstants.STATUS_READY);
     }
+
     private void configurePatterns() {
         /* substitua o bloco de código a seguir pela lógica do que deve acontecer quando este botão é clicado */
         String message = "Configuração de padrão selecionado";
         JOptionPane.showMessageDialog(mainView, message, "Menu Action" , JOptionPane.INFORMATION_MESSAGE);
         mainView.setStatus(message);
     }
+
     private void configureColors() {
         /* substitua o bloco de código a seguir pela lógica do que deve acontecer quando este botão é clicado */
         String message = "Configuração de cor selecionado";
         JOptionPane.showMessageDialog(mainView, message, "Menu Action" , JOptionPane.INFORMATION_MESSAGE);
         mainView.setStatus(message);
     }
+
     private void configureSpeed() {
         /* substitua o bloco de código a seguir pela lógica do que deve acontecer quando este botão é clicado */
         String message = "Configuração de velocidade selecionado";
         JOptionPane.showMessageDialog(mainView, message, "Menu Action" , JOptionPane.INFORMATION_MESSAGE);
         mainView.setStatus(message);
     }
+
     private void showHelp() {
         /* substitua o bloco de código a seguir pela lógica do que deve acontecer quando este botão é clicado */
         String message = "Ajuda selecionado";
         JOptionPane.showMessageDialog(mainView, message, "Menu Action" , JOptionPane.INFORMATION_MESSAGE);
         mainView.setStatus(message);
     }
+
     private void showAbout() {
         /* substitua o bloco de código a seguir pela lógica do que deve acontecer quando este botão é clicado */
         String message = "Sobre selecionado";
