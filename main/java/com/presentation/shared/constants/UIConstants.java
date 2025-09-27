@@ -9,10 +9,6 @@ public class UIConstants {
     public static final int MAIN_WINDOW_MIN_WIDTH = 600;
     public static final int MAIN_WINDOW_MIN_HEIGHT = 400;
 
-    // Constantes da Barra de Status
-    public static final String STATUS_READY = "Pronto";
-    public static final String STATUS_FILE_OPENED = "Arquivo aberto";
-    public static final String STATUS_FILE_CLOSED = "Arquivo fechado";
 
     // Constantes de Diálogos
     public static final String DIALOG_TITLE_ERROR = "Erro";
@@ -27,7 +23,6 @@ public class UIConstants {
     public static final String MESSAGE_EXIT_CONFIRM = "Deseja realmente sair da aplicação?";
 
     // Ícones e recursos
-    public static final String ICON_PATH = "/resources/app-icon.png";
     public static final String LOGO_PATH = "/FT_logo.jpg";
 
     // Configurações de texto

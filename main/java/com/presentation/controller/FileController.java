@@ -28,7 +28,6 @@ public class FileController {
 
     }
 
-
     public String openFile() throws IOException, FileReadException, DirectoryNotFoundException {
         FileChooserManager fileChooser = new FileChooserManager();
         File selectedFile = null;
@@ -62,27 +61,6 @@ public class FileController {
         );
     }
 
-//    public void closeFile() {
-//        if (currentFile != null) {
-//            if (fileDisplayPanel != null) {
-//                fileDisplayPanel.clearContent();
-//            }
-//            String fileName = currentFile.getName();
-//            this.currentFile = null;
-//
-//            // Atualiza estado do menu após fechar arquivo
-//            if (menuController != null) {
-//                menuController.updateMenuState();
-//            }
-//
-//            showMessage("Arquivo fechado: " + fileName,
-//                    "Arquivo Fechado", JOptionPane.INFORMATION_MESSAGE);
-//        } else {
-//            showMessage("Nenhum arquivo está aberto no momento.",
-//                    "Aviso", JOptionPane.WARNING_MESSAGE);
-//        }
-//    }
-
     public boolean hasOpenFile() {
         return currentFile != null;
     }
@@ -95,22 +73,6 @@ public class FileController {
         return currentFile != null ? currentFile.getName() : null;
     }
 
-//    public void exitApplication() {
-//        int option = JOptionPane.showConfirmDialog(
-//                null,
-//                "Tem certeza que deseja sair da aplicação?",
-//                "Confirmar Saída",
-//                JOptionPane.YES_NO_OPTION,
-//                JOptionPane.QUESTION_MESSAGE
-//        );
-//
-//        if (option == JOptionPane.YES_OPTION) {
-//            if (hasOpenFile()) {
-//                closeFile();
-//            }
-//            System.exit(0);
-//        }
-//    }
 
     private void showMessage(String message, String title, int messageType) {
         JOptionPane.showMessageDialog(null, message, title, messageType);
