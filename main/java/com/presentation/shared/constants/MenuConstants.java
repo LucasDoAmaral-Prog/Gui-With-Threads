@@ -1,35 +1,46 @@
 package com.presentation.shared.constants;
 
-/**
- * Constantes relacionadas aos menus da aplicação
- */
-public final class MenuConstants {
-    
-    // === MENU ARQUIVO ===
-    public static final String MENU_FILE_TITLE = "Arquivo";
-    public static final String MENU_FILE_OPEN = "Abrir Arquivo";
-    public static final String MENU_FILE_CLOSE = "Fechar Arquivo";
-    public static final String MENU_FILE_EXIT = "Sair";
-    
-    // === MENU CONFIGURAÇÃO ===
-    public static final String MENU_CONFIG_TITLE = "Configuração";
-    public static final String MENU_CONFIG_PATTERNS = "Padrões";
-    public static final String MENU_CONFIG_COLORS = "Cores";
-    public static final String MENU_CONFIG_SPEED = "Velocidade";
-    
-    // === MENU AJUDA ===
-    public static final String MENU_HELP_TITLE = "Ajuda";
-    public static final String MENU_HELP_HELP = "Ajuda";
-    public static final String MENU_HELP_ABOUT = "Sobre";
-    
-    // === MENSAGENS ===
-    public static final String MESSAGE_NOT_IMPLEMENTED = "A funcionalidade '%s' será implementada em breve.";
-    public static final String TITLE_NOT_IMPLEMENTED = "Funcionalidade não implementada";
-    public static final String MESSAGE_EXIT_CONFIRM = "Deseja realmente sair da aplicação?";
-    public static final String TITLE_EXIT_CONFIRM = "Confirmar Saída";
-    
-    // Construtor privado para evitar instanciação
-    private MenuConstants() {
-        throw new UnsupportedOperationException("Esta é uma classe de constantes");
-    }
+public class MenuConstants {
+
+    // Menu Arquivo
+    public static final String MENU_ARQUIVO = "<html>Arquivo <font color='gray'>(Alt+A)</font></html>";
+    public static final String MENU_ITEM_ABRIR_ARQUIVO = "<html>Abrir Arquivo <font color='gray'>A</font></html>";
+    public static final String MENU_ITEM_FECHAR_ARQUIVO = "<html>Fechar Arquivo <font color='gray'>F</font></html>";
+    public static final String MENU_ITEM_SAIR = "<html>Sair <font color='gray'>S</font></html>";
+
+    // Menu Configuração
+    public static final String MENU_CONFIGURACAO = "<html>Configuração <font color='gray'>(Alt+C)</font></html>";
+    public static final String MENU_ITEM_PADROES = "<html>Padrões <font color='gray'>P</font></html>";
+    public static final String MENU_ITEM_CORES = "<html>Cores <font color='gray'>O</font></html>";
+    public static final String MENU_ITEM_VELOCIDADE = "<html>Velocidade <font color='gray'>V</font></html>";
+
+    // Menu Ajuda
+    public static final String MENU_AJUDA = "<html>Ajuda <font color='gray'>(Alt+J)</font></html>";
+    public static final String MENU_ITEM_AJUDA = "<html>Ajuda <font color='gray'>A</font></html>";
+    public static final String MENU_ITEM_SOBRE = "<html>Sobre <font color='gray'>S</font></html>";
+
+    // Atalhos de teclado (mnemônicos)
+    public static final int MNEMONIC_ARQUIVO = 'A';
+    public static final int MNEMONIC_CONFIGURACAO = 'C';
+    public static final int MNEMONIC_AJUDA = 'J';
+
+    // Atalhos específicos dos itens
+    public static final int MNEMONIC_ABRIR_ARQUIVO = 'A';
+    public static final int MNEMONIC_FECHAR_ARQUIVO = 'F';
+    public static final int MNEMONIC_SAIR = 'S';
+    public static final int MNEMONIC_PADROES = 'P';
+    public static final int MNEMONIC_CORES = 'O';
+    public static final int MNEMONIC_VELOCIDADE = 'V';
+    public static final int MNEMONIC_AJUDA_ITEM = 'A';
+    public static final int MNEMONIC_SOBRE = 'S';
+
+    // Comandos de ação
+    public static final String ACTION_ABRIR_ARQUIVO = "ABRIR_ARQUIVO";
+    public static final String ACTION_FECHAR_ARQUIVO = "FECHAR_ARQUIVO";
+    public static final String ACTION_SAIR = "SAIR";
+    public static final String ACTION_PADROES = "PADROES";
+    public static final String ACTION_CORES = "CORES";
+    public static final String ACTION_VELOCIDADE = "VELOCIDADE";
+    public static final String ACTION_AJUDA = "AJUDA";
+    public static final String ACTION_SOBRE = "SOBRE";
 }

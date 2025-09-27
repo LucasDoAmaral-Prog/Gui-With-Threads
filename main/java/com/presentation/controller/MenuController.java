@@ -1,193 +1,159 @@
 package com.presentation.controller;
 
+import com.presentation.dialog.config.ColorConfigDialog;
+import com.presentation.dialog.config.PatternConfigDialog;
+import com.presentation.dialog.config.SpeedConfigDialog;
+import com.presentation.dialog.file.CloseFileDialog;
+import com.presentation.dialog.file.ExitDialog;
+import com.presentation.dialog.file.OpenFileDialog;
+import com.presentation.dialog.help.AboutDialog;
+import com.presentation.dialog.help.HelpDialog;
+import com.presentation.shared.constants.UIConstants;
 import com.presentation.shared.constants.MenuConstants;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
 
 /**
- * Controlador responsável pela lógica do menu da aplicação
+ * Controlador responsável por gerenciar as ações dos menus
  */
-public class MenuController {
-    
-    private final FileController fileController;
-    private JMenuBar menuBar;
-    
-    // === REFERÊNCIAS DIRETAS DOS ITENS DE MENU ===
-    private JMenuItem openFileItem;
-    private JMenuItem closeFileItem;
-    private JMenuItem exitItem;
-    
-    public MenuController(FileController fileController) {
-        this.fileController = fileController;
-        initializeMenu();
+public class MenuController implements ActionListener {
+
+    private JFrame parentFrame;
+
+    public MenuController(JFrame parentFrame) {
+        this.parentFrame = parentFrame;
     }
-    
-    /**
-     * Inicializa a barra de menu completa
-     */
-    private void initializeMenu() {
-        menuBar = new JMenuBar();
-        createFileMenu();
-        createConfigurationMenu();
-        createHelpMenu();
-    }
-    
-    /**
-     * Cria o menu Arquivo com todas as suas opções
-     */
-    private void createFileMenu() {
-        JMenu fileMenu = new JMenu(MenuConstants.MENU_FILE_TITLE);
-        fileMenu.setMnemonic(KeyEvent.VK_A); // Alt + A para abrir o menu
-        
-        // Item: Abrir Arquivo - GUARDA REFERÊNCIA
-        openFileItem = createMenuItem(
-            MenuConstants.MENU_FILE_OPEN, 
-            KeyEvent.VK_A, 
-            KeyStroke.getKeyStroke(KeyEvent.VK_O, ActionEvent.CTRL_MASK),
-            e -> fileController.openFile()
-        );
-        
-        // Item: Fechar Arquivo - GUARDA REFERÊNCIA
-        closeFileItem = createMenuItem(
-            MenuConstants.MENU_FILE_CLOSE, 
-            KeyEvent.VK_F, 
-            KeyStroke.getKeyStroke(KeyEvent.VK_W, ActionEvent.CTRL_MASK),
-            e -> fileController.closeFile()
-        );
-        
-        // Separador
-        JSeparator separator = new JSeparator();
-        
-        // Item: Sair - GUARDA REFERÊNCIA
-        exitItem = createMenuItem(
-            MenuConstants.MENU_FILE_EXIT, 
-            KeyEvent.VK_S, 
-            KeyStroke.getKeyStroke(KeyEvent.VK_Q, ActionEvent.CTRL_MASK),
-            e -> fileController.exitApplication()
-        );
-        
-        // Adiciona os itens ao menu
-        fileMenu.add(openFileItem);
-        fileMenu.add(closeFileItem);
-        fileMenu.add(separator);
-        fileMenu.add(exitItem);
-        
-        // Adiciona o menu à barra de menu
-        menuBar.add(fileMenu);
-    }
-    
-    /**
-     * Cria o menu Configuração (placeholder)
-     */
-    private void createConfigurationMenu() {
-        JMenu configMenu = new JMenu(MenuConstants.MENU_CONFIG_TITLE);
-        configMenu.setMnemonic(KeyEvent.VK_C); // Alt + C para abrir o menu
-        
-        // Item: Padrões
-        JMenuItem patternsItem = createMenuItem(
-            MenuConstants.MENU_CONFIG_PATTERNS, 
-            KeyEvent.VK_P, 
-            null,
-            e -> showNotImplementedDialog("Configuração de Padrões")
-        );
-        
-        // Item: Cores
-        JMenuItem colorsItem = createMenuItem(
-            MenuConstants.MENU_CONFIG_COLORS, 
-            KeyEvent.VK_O, 
-            null,
-            e -> showNotImplementedDialog("Configuração de Cores")
-        );
-        
-        // Item: Velocidade
-        JMenuItem speedItem = createMenuItem(
-            MenuConstants.MENU_CONFIG_SPEED, 
-            KeyEvent.VK_V, 
-            null,
-            e -> showNotImplementedDialog("Configuração de Velocidade")
-        );
-        
-        configMenu.add(patternsItem);
-        configMenu.add(colorsItem);
-        configMenu.add(speedItem);
-        
-        menuBar.add(configMenu);
-    }
-    
-    /**
-     * Cria o menu Ajuda (placeholder)
-     */
-    private void createHelpMenu() {
-        JMenu helpMenu = new JMenu(MenuConstants.MENU_HELP_TITLE);
-        helpMenu.setMnemonic(KeyEvent.VK_J); // Alt + J para abrir o menu
-        
-        // Item: Ajuda
-        JMenuItem helpItem = createMenuItem(
-            MenuConstants.MENU_HELP_HELP, 
-            KeyEvent.VK_A, 
-            KeyStroke.getKeyStroke(KeyEvent.VK_F1, 0),
-            e -> showNotImplementedDialog("Ajuda")
-        );
-        
-        // Item: Sobre
-        JMenuItem aboutItem = createMenuItem(
-            MenuConstants.MENU_HELP_ABOUT, 
-            KeyEvent.VK_S, 
-            null,
-            e -> showNotImplementedDialog("Sobre")
-        );
-        
-        helpMenu.add(helpItem);
-        helpMenu.add(aboutItem);
-        
-        menuBar.add(helpMenu);
-    }
-    
-    /**
-     * Mostra diálogo para funcionalidades não implementadas
-     */
-    private void showNotImplementedDialog(String feature) {
-        JOptionPane.showMessageDialog(
-            null,
-            String.format(MenuConstants.MESSAGE_NOT_IMPLEMENTED, feature),
-            MenuConstants.TITLE_NOT_IMPLEMENTED,
-            JOptionPane.INFORMATION_MESSAGE
-        );
-    }
-    
-    /**
-     * Método auxiliar para criar itens de menu
-     */
-    private JMenuItem createMenuItem(String text, int mnemonic, KeyStroke accelerator, ActionListener action) {
-        JMenuItem menuItem = new JMenuItem(text);
-        menuItem.setMnemonic(mnemonic);
-        if (accelerator != null) {
-            menuItem.setAccelerator(accelerator);
-        }
-        menuItem.addActionListener(action);
-        return menuItem;
-    }
-    
-    /**
-     * Retorna a barra de menu criada
-     */
-    public JMenuBar getMenuBar() {
-        return menuBar;
-    }
-    
-    /**
-     * Atualiza o estado dos itens de menu - USA REFERÊNCIAS DIRETAS
-     */
-    public void updateMenuState() {
-        SwingUtilities.invokeLater(() -> {
-            boolean hasOpenFile = fileController.hasOpenFile();
-            
-            // ✅ SOLUÇÃO ROBUSTA: Usa referência direta
-            if (closeFileItem != null) {
-                closeFileItem.setEnabled(hasOpenFile);
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        String command = e.getActionCommand();
+
+        try {
+            switch (command) {
+                case MenuConstants.ACTION_ABRIR_ARQUIVO:
+                    handleOpenFile();
+                    break;
+
+                case MenuConstants.ACTION_FECHAR_ARQUIVO:
+                    handleCloseFile();
+                    break;
+
+                case MenuConstants.ACTION_SAIR:
+                    handleExit();
+                    break;
+
+                case MenuConstants.ACTION_PADROES:
+                    handlePatternConfig();
+                    break;
+
+                case MenuConstants.ACTION_CORES:
+                    handleColorConfig();
+                    break;
+
+                case MenuConstants.ACTION_VELOCIDADE:
+                    handleSpeedConfig();
+                    break;
+
+                case MenuConstants.ACTION_AJUDA:
+                    handleHelp();
+                    break;
+
+                case MenuConstants.ACTION_SOBRE:
+                    handleAbout();
+                    break;
+
+                default:
+                    showNotImplementedMessage();
+                    break;
             }
-        });
+        } catch (Exception ex) {
+            handleException(ex);
+        }
+    }
+
+    private void handleOpenFile() {
+        OpenFileDialog dialog = new OpenFileDialog(parentFrame);
+        dialog.setVisible(true);
+
+        if (dialog.isFileOpened()) {
+            updateStatusBar(UIConstants.STATUS_FILE_OPENED);
+        }
+    }
+
+    private void handleCloseFile() {
+        CloseFileDialog dialog = new CloseFileDialog(parentFrame);
+        dialog.setVisible(true);
+
+        if (dialog.isConfirmed()) {
+            updateStatusBar(UIConstants.STATUS_FILE_CLOSED);
+            clearMainArea();
+        }
+    }
+
+    private void handleExit() {
+        ExitDialog dialog = new ExitDialog(parentFrame);
+        dialog.setVisible(true);
+
+        if (dialog.isExitConfirmed()) {
+            System.exit(0);
+        }
+    }
+
+    private void handlePatternConfig() {
+        PatternConfigDialog dialog = new PatternConfigDialog(parentFrame);
+        dialog.setVisible(true);
+    }
+
+    private void handleColorConfig() {
+        ColorConfigDialog dialog = new ColorConfigDialog(parentFrame);
+        dialog.setVisible(true);
+    }
+
+    private void handleSpeedConfig() {
+        SpeedConfigDialog dialog = new SpeedConfigDialog(parentFrame);
+        dialog.setVisible(true);
+    }
+
+    private void handleHelp() {
+        HelpDialog dialog = new HelpDialog(parentFrame);
+        dialog.setVisible(true);
+    }
+
+    private void handleAbout() {
+        AboutDialog dialog = new AboutDialog(parentFrame);
+        dialog.setVisible(true);
+    }
+
+    private void showNotImplementedMessage() {
+        JOptionPane.showMessageDialog(parentFrame,
+                UIConstants.MESSAGE_FEATURE_NOT_IMPLEMENTED,
+                UIConstants.DIALOG_TITLE_INFO,
+                JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    // Atualiza a barra de status delegando para a classe principal
+    private void updateStatusBar(String message) {
+        if (parentFrame instanceof MainController) {
+            ((MainController) parentFrame).updateStatusBar(message);
+        }
+    }
+
+    // Limpa a área principal delegando para a classe principal
+    private void clearMainArea() {
+        if (parentFrame instanceof MainController) {
+            ((MainController) parentFrame).clearMainArea();
+        }
+    }
+
+    // Manipula exceções que possam ocorrer
+    private void handleException(Exception ex) {
+        String message = "Erro inesperado: " + ex.getMessage();
+        JOptionPane.showMessageDialog(parentFrame,
+                message,
+                UIConstants.DIALOG_TITLE_ERROR,
+                JOptionPane.ERROR_MESSAGE);
+        ex.printStackTrace();
     }
 }
