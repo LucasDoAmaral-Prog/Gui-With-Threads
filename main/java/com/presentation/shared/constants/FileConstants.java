@@ -15,6 +15,10 @@ public final class FileConstants {
     // Tamanhos
     public static final long MAX_FILE_SIZE_BYTES = 5 * 1024 * 1024; // 5MB
     public static final String MAX_FILE_SIZE_DISPLAY = "5MB";
+
+    // Diretório padrão
+    public static final String DEFAULT_DIR_PATH = "test-files";
+    public static final String TEST_DIR = "C:\\Users\\dudab\\Projects\\Gui-With-Threads\\main\\resources\\test-files";
     
     // Mensagens de erro
     public static final String ERROR_NULL_FILE = "Nenhum arquivo foi selecionado";

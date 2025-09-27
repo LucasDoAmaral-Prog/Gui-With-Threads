@@ -1,0 +1,14 @@
+Este é um arquivo de teste para demonstrar a funcionalidade de leitura de arquivos.
+
+Conteúdo do arquivo:
+- Linha 1: Texto simples
+- Linha 2: Caracteres especiais: áéíóú çñü
+- Linha 3: Números: 12345
+
+Este arquivo pode ser usado para testar se a aplicação consegue:
+✓ Abrir arquivos de texto
+✓ Exibir conteúdo corretamente
+✓ Lidar com caracteres especiais
+✓ Mostrar múltiplas linhas
+
+Fim do arquivo de teste.
