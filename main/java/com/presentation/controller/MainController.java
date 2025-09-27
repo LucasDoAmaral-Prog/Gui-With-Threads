@@ -186,7 +186,7 @@ public class MainController extends JFrame {
         statusBar.setText(message);
     }
 
-    public void clearMainArea() {
+    public static void clearMainArea() {
         mainArea.setText("");
     }
 

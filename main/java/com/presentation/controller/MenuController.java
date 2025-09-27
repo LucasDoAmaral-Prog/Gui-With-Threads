@@ -84,7 +84,8 @@ public class MenuController implements ActionListener {
     }
 
     private void handleCloseFile() {
-
+        MainController.clearMainArea();
+        updateStatusBar(UIConstants.STATUS_FILE_CLOSED);
     }
 
     private void handleExit() {
