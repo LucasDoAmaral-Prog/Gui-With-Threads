@@ -27,13 +27,12 @@ public class FileController {
             selectedFile = fileChooser.openFileDialog();
         } catch (DirectoryNotFoundException e) {
             showDirectoryNotFoundMessage(e);
-            throw e; // Repropague para quem chamou tratar
+            throw e;
         }
 
         if (selectedFile == null) {
-            // Usuário cancelou; pode retornar null ou lançar exceção personalizada, se necessário
+            showMessage("Operação cancelada: nenhum arquivo foi selecionado.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
             return null;
-            // ou: throw new FileReadException("No file selected.");
         }
 
         try {
