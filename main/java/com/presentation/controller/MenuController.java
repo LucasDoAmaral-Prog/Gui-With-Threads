@@ -205,12 +205,17 @@ public class MenuController extends MenuListener {
         }
     }
 
-    // Specific methods for each action
     private void openFile() {
-//        mainView.setStatus(StatusBarConstants.STATUS_FILE_OPENING);
-//        FileController controller = new FileController();
-//        mainView.setMainAreaText(controller.openFile());
-//        mainView.setStatus(StatusBarConstants.STATUS_FILE_OPENED);
+        mainView.setStatus(StatusBarConstants.STATUS_FILE_OPENING);
+        FileController fileController = new FileController();
+        try {
+            String fileContent = fileController.openFile();
+            mainView.setMainAreaText(fileContent);
+            mainView.setStatus(StatusBarConstants.STATUS_FILE_OPENED);
+        } catch (Exception e) {
+            mainView.setStatus("Error opening file: " + e.getMessage());
+            mainView.setMainAreaText(""); // Optionally clear the area
+        }
     }
 
     private void closeFile() {
