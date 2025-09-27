@@ -1,8 +1,10 @@
 package com.presentation.dialog.file;
 
+import com.presentation.shared.constants.FileConstants;
 import com.presentation.shared.constants.UIConstants;
 
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -13,60 +15,35 @@ import java.io.File;
  */
 public class OpenFileDialog extends JDialog {
 
-    private boolean fileOpened = false;
     private File selectedFile = null;
+    private boolean fileOpened = false;
 
     public OpenFileDialog(JFrame parent) {
-        super(parent, "Abrir Arquivo", true);
-        initializeDialog();
+        super(parent, true); // modal
+        openFileChooser();   // abre o seletor assim que o diálogo é criado
     }
 
-    private void initializeDialog() {
-        setSize(400, 200);
-        setLocationRelativeTo(getParent());
-        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+    private void openFileChooser() {
+        JFileChooser chooser = new JFileChooser();
 
-        JPanel panel = new JPanel(new BorderLayout());
+        FileNameExtensionFilter textFilter = new FileNameExtensionFilter("Arquivos de Texto (*.txt)", "txt");
+        chooser.setFileFilter(textFilter);
+        // simples, sem configuração
+        int result = chooser.showOpenDialog(this);      // abre o diálogo
 
-        // Área de informação
-        JLabel infoLabel = new JLabel("<html><center>" + UIConstants.MESSAGE_FEATURE_NOT_IMPLEMENTED +
-                "<br><br>Esta funcionalidade permitirá abrir arquivos de texto.</center></html>");
-        infoLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        panel.add(infoLabel, BorderLayout.CENTER);
+        if (result == JFileChooser.APPROVE_OPTION) {
+            selectedFile = chooser.getSelectedFile();
+            fileOpened = true;
+        }
 
-        // Painel de botões
-        JPanel buttonPanel = new JPanel(new FlowLayout());
-
-        JButton okButton = new JButton("OK");
-        okButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // Simula abertura de arquivo
-                fileOpened = true;
-                dispose();
-            }
-        });
-
-        JButton cancelButton = new JButton("Cancelar");
-        cancelButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                dispose();
-            }
-        });
-
-        buttonPanel.add(okButton);
-        buttonPanel.add(cancelButton);
-        panel.add(buttonPanel, BorderLayout.SOUTH);
-
-        add(panel);
-    }
-
-    public boolean isFileOpened() {
-        return fileOpened;
+        dispose(); // fecha o JDialog depois de escolher ou cancelar
     }
 
     public File getSelectedFile() {
         return selectedFile;
+    }
+
+    public boolean isFileOpened() {
+        return fileOpened;
     }
 }
