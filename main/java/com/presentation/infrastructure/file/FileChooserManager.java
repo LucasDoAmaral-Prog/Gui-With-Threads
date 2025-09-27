@@ -20,12 +20,11 @@ public class FileChooserManager {
     public File openFileDialog() throws DirectoryNotFoundException {
         JFileChooser chooser = new JFileChooser();
 
-        // Try to set the initial directory to the one passed in the constructor
         File initialDir = new File(defaultDirPath);
         if (initialDir.exists() && initialDir.isDirectory()) {
             chooser.setCurrentDirectory(initialDir);
         } else {
-            // If the provided directory does not exist, fallback to user home or throw the exception
+            // Se o diretório inicial não existir, tenta o diretório do usuário
             String userHome = System.getProperty("user.home");
             File defaultDir = new File(userHome);
             if (defaultDir.exists()) {
@@ -35,10 +34,8 @@ public class FileChooserManager {
             }
         }
 
-        // Set the dialog title
         chooser.setDialogTitle("Abrir Arquivo");
 
-        // Create and apply a filter to show only .txt files
         FileNameExtensionFilter textFilter = new FileNameExtensionFilter("Arquivos de Texto (*.txt)", "txt");
         chooser.setFileFilter(textFilter);
         chooser.setAcceptAllFileFilterUsed(false);
