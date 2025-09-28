@@ -1,37 +1,38 @@
 package com.presentation.dialog;
 
+import com.presentation.shared.constants.AnimationConstants;
+
 import javax.swing.*;
 import java.awt.*;
 
 public class PatternConfigDialog extends JDialog {
 
     private JComboBox<String> comboPatterns;
-    private String selectedPattern;
+    private Integer selectedIndex; // Agora usamos índice
 
-    private static final Dimension DIALOG_SIZE = new Dimension(300, 150);
+    private static final Dimension DIALOG_SIZE = new Dimension(350, 150);
 
-    public PatternConfigDialog(JFrame parent, String currentPattern) {
-        super(parent, "Selecionar Padrão", true);
+    public PatternConfigDialog(JFrame parent, int currentIndex) {
+        super(parent, AnimationConstants.PATTERN_CONFIG_DIALOG_TITLE, true);
 
-        comboPatterns = new JComboBox<>(new String[]{"CIRCLES", "SQUARES", "STARS", "WAVES"});
-        comboPatterns.setSelectedItem(currentPattern);
-        comboPatterns.setPreferredSize(new Dimension(150, 25));
+        comboPatterns = new JComboBox<>(AnimationConstants.PATTERN_OPTIONS);
+        comboPatterns.setSelectedIndex(currentIndex); // seleciona pelo índice
+        comboPatterns.setPreferredSize(new Dimension(180, 25));
 
         JButton okButton = new JButton("OK");
         okButton.setPreferredSize(new Dimension(100, 25));
         okButton.addActionListener(e -> {
-            selectedPattern = (String) comboPatterns.getSelectedItem();
+            selectedIndex = comboPatterns.getSelectedIndex(); // pega índice selecionado
             dispose();
         });
 
         JButton cancelButton = new JButton("Cancelar");
         cancelButton.setPreferredSize(new Dimension(100, 25));
         cancelButton.addActionListener(e -> {
-            selectedPattern = null; // não altera
+            selectedIndex = null; // não altera
             dispose();
         });
 
-        // Painel central com label e combo lado a lado
         JPanel centerPanel = new JPanel(new GridBagLayout());
         centerPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         GridBagConstraints gbc = new GridBagConstraints();
@@ -40,12 +41,11 @@ public class PatternConfigDialog extends JDialog {
 
         gbc.gridx = 0;
         gbc.gridy = 0;
-        centerPanel.add(new JLabel("Escolha o padrão:"), gbc);
+        centerPanel.add(new JLabel(AnimationConstants.PATTERN_CONFIG_DIALOG_TEXT), gbc);
 
         gbc.gridx = 1;
         centerPanel.add(comboPatterns, gbc);
 
-        // Painel de botões
         JPanel buttonPanel = new JPanel();
         buttonPanel.add(okButton);
         buttonPanel.add(cancelButton);
@@ -59,7 +59,8 @@ public class PatternConfigDialog extends JDialog {
         setLocationRelativeTo(parent);
     }
 
-    public String getSelectedPattern() {
-        return selectedPattern;
+    // Retorna índice selecionado
+    public Integer getSelectedIndex() {
+        return selectedIndex;
     }
 }

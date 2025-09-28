@@ -9,28 +9,31 @@ import java.awt.*;
 public class ColorConfigDialog extends JDialog {
 
     private JComboBox<String> comboColors;
-    private String selectedScheme;
+    private Integer selectedIndex; // agora armazenamos o índice selecionado
 
-    private static final Dimension DIALOG_SIZE = new Dimension(300, 150);
+    private static final Dimension DIALOG_SIZE = new Dimension(350, 150);
 
-    public ColorConfigDialog(JFrame parent, String currentScheme) {
+    public ColorConfigDialog(JFrame parent, int currentIndex) {
         super(parent, AnimationConstants.COLOR_CONFIG_DIALOG_TITLE, true);
 
+        // ComboBox com todas as cores disponíveis
         comboColors = new JComboBox<>(AnimationConstants.COLOR_OPTIONS);
-        comboColors.setSelectedItem(currentScheme);
-        comboColors.setPreferredSize(new Dimension(150, 25));
+        comboColors.setSelectedIndex(currentIndex); // seleciona pelo índice
+        comboColors.setPreferredSize(new Dimension(180, 25));
 
+        // Botão OK
         JButton okButton = new JButton(UIConstants.BTN_OK);
         okButton.setPreferredSize(new Dimension(100, 25));
         okButton.addActionListener(e -> {
-            selectedScheme = (String) comboColors.getSelectedItem();
+            selectedIndex = comboColors.getSelectedIndex(); // pega índice selecionado
             dispose();
         });
 
+        // Botão Cancelar
         JButton cancelButton = new JButton(UIConstants.BTN_NO);
         cancelButton.setPreferredSize(new Dimension(100, 25));
         cancelButton.addActionListener(e -> {
-            selectedScheme = null;
+            selectedIndex = null; // não altera
             dispose();
         });
 
@@ -62,7 +65,8 @@ public class ColorConfigDialog extends JDialog {
         setLocationRelativeTo(parent);
     }
 
-    public String getSelectedScheme() {
-        return selectedScheme;
+    // Retorna índice selecionado
+    public Integer getSelectedIndex() {
+        return selectedIndex;
     }
 }

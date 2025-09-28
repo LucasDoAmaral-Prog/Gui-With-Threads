@@ -35,15 +35,22 @@ public class AnimationService {
 
     private void initializeSpeedSettings() {
         speedSettings = new HashMap<>();
-        speedSettings.put("SLOW", 50);
-        speedSettings.put("NORMAL", 16);
-        speedSettings.put("FAST", 8);
+        speedSettings.put(AnimationConstants.SPEED_OPTIONS[0], 50);  // Lento
+        speedSettings.put(AnimationConstants.SPEED_OPTIONS[1], 16);  // Normal
+        speedSettings.put(AnimationConstants.SPEED_OPTIONS[2], 8);   // Rápido
     }
 
     private void initializePatternTypes() {
         patternTypes = new HashMap<>();
-        patternTypes.put("BASIC", new String[]{"CIRCLES", "SQUARES"});
-        patternTypes.put("ADVANCED", new String[]{"STARS", "WAVES", "SPIRAL"});
+        patternTypes.put("BÁSICO", new String[]{
+                AnimationConstants.PATTERN_OPTIONS[0], // Círculos
+                AnimationConstants.PATTERN_OPTIONS[1]  // Quadrados
+        });
+        patternTypes.put("AVANÇADO", new String[]{
+                AnimationConstants.PATTERN_OPTIONS[2], // Estrelas
+                AnimationConstants.PATTERN_OPTIONS[3]  // Ondas
+                // Espiral removido
+        });
     }
 
     public Color[] getColorScheme(String schemeName) {
@@ -51,11 +58,11 @@ public class AnimationService {
     }
 
     public int getSpeedDelay(String speedName) {
-        return speedSettings.getOrDefault(speedName.toUpperCase(), 16);
+        return speedSettings.getOrDefault(speedName, 16);
     }
 
     public String[] getAvailablePatterns(String category) {
-        return patternTypes.getOrDefault(category.toUpperCase(), patternTypes.get("BASIC"));
+        return patternTypes.getOrDefault(category.toUpperCase(), patternTypes.get("BÁSICO"));
     }
 
     public String[] getAllColorSchemes() {
@@ -64,5 +71,9 @@ public class AnimationService {
 
     public String[] getAllSpeedSettings() {
         return speedSettings.keySet().toArray(new String[0]);
+    }
+
+    public String[] getAllPatternCategories() {
+        return patternTypes.keySet().toArray(new String[0]);
     }
 }

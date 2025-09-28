@@ -2,31 +2,49 @@ package com.presentation.controller;
 
 import com.presentation.shared.constants.AnimationConstants;
 import com.presentation.view.AnimatedBackgroundPanel;
-import com.presentation.domain.model.BackgroundPattern;
 import java.awt.Color;
 
 public class AnimationController {
 
-    public void updatePattern(AnimatedBackgroundPanel panel, String type, Color[] colors, int speed) {
-        // Crie o BackgroundPattern mas use apenas o tipo
-        BackgroundPattern pattern = new BackgroundPattern(type, colors, speed);
-
-        // Passe apenas o tipo (String) para setPattern
-        panel.setPattern(pattern.getType());
-
-        // Configure cores e velocidade separadamente
-        panel.setColorScheme(getSchemeNameFromColors(colors));
-        panel.setSpeed(String.valueOf(speed));
+    /**
+     * Atualiza o painel de animação usando índices em vez de Strings
+     */
+    public void updatePattern(AnimatedBackgroundPanel panel, int patternIndex, int colorSchemeIndex, int speedIndex) {
+        panel.setPatternIndex(patternIndex);
+        panel.setColorSchemeIndex(colorSchemeIndex);
+        panel.setSpeedIndex(speedIndex);
     }
 
-    private String getSchemeNameFromColors(Color[] colors) {
-        // Lógica simples para determinar esquema baseado nas cores
+    /**
+     * Converte um array de cores em índice do esquema correspondente
+     */
+    public int getColorSchemeIndexFromColors(Color[] colors) {
         if (colors.length > 0 && colors[0].getBlue() > 200) {
-            return AnimationConstants.COLOR_OPTIONS[0];
+            return 0; // Tons Pasteis
         } else if (colors.length > 0 && colors[0].getRed() > 200) {
-            return AnimationConstants.COLOR_OPTIONS[1];
+            return 2; // Tons Quentes
         } else {
-            return AnimationConstants.COLOR_OPTIONS[2];
+            return 1; // Natureza
         }
+    }
+
+    /**
+     * Converte o nome do padrão em índice
+     */
+    public int getPatternIndexFromName(String patternName) {
+        for (int i = 0; i < AnimationConstants.PATTERN_OPTIONS.length; i++) {
+            if (AnimationConstants.PATTERN_OPTIONS[i].equals(patternName)) return i;
+        }
+        return 0; // padrão CIRCLES
+    }
+
+    /**
+     * Converte a velocidade em índice
+     */
+    public int getSpeedIndexFromValue(int speedValue) {
+        for (int i = 0; i < AnimationConstants.SPEED_OPTIONS.length; i++) {
+            if (AnimationConstants.SPEED_VALUES[i] == speedValue) return i;
+        }
+        return 1; // NORMAL
     }
 }
