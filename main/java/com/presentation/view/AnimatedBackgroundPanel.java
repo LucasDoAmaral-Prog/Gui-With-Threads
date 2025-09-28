@@ -3,14 +3,17 @@ package com.presentation.view;
 import com.presentation.domain.service.AnimationService;
 import com.presentation.domain.service.BackgroundRenderService;
 import com.presentation.infrastructure.thread.ThreadManager;
-import com.presentation.domain.model.BackgroundPattern;
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * Painel com animação de fundo
+ */
 public class AnimatedBackgroundPanel extends JPanel {
+
     private final AnimationService animationService;
     private final BackgroundRenderService renderService;
     private final ThreadManager threadManager;
@@ -19,35 +22,62 @@ public class AnimatedBackgroundPanel extends JPanel {
     private Timer timer;
     private Random random = new Random();
 
+    // Configurações atuais
     private String currentPattern = "CIRCLES";
+    private String currentColorScheme = "COOL";
+    private String currentSpeed = "MEDIUM";
+
     private Color[] currentColors;
-    private int animationSpeed = 16;
+    private int animationDelay;
 
     public AnimatedBackgroundPanel() {
         this.animationService = new AnimationService();
         this.renderService = new BackgroundRenderService();
         this.threadManager = ThreadManager.getInstance();
 
-        this.currentColors = animationService.getColorScheme("COOL");
+        // Inicializa cores e velocidade
+        this.currentColors = animationService.getColorScheme(currentColorScheme);
+        this.animationDelay = animationService.getSpeedDelay(currentSpeed);
 
         setOpaque(false);
         initializeShapes();
         startAnimation();
     }
 
-    public void setPattern(BackgroundPattern pattern) {
-        this.currentPattern = pattern.getType();
-        this.currentColors = pattern.getColors();
-        this.animationSpeed = pattern.getSpeed();
+    // =================== GETTERS ===================
+    public String getCurrentPattern() {
+        return currentPattern;
+    }
 
-        if (timer != null) {
-            timer.setDelay(animationSpeed);
-        }
+    public String getCurrentColorScheme() {
+        return currentColorScheme;
+    }
 
+    public String getCurrentSpeed() {
+        return currentSpeed;
+    }
+
+    // =================== SETTERS ===================
+    public void setPattern(String pattern) {
+        this.currentPattern = pattern;
         initializeShapes();
     }
 
+    public void setColorScheme(String scheme) {
+        this.currentColorScheme = scheme;
+        this.currentColors = animationService.getColorScheme(scheme);
+        initializeShapes();
+    }
 
+    public void setSpeed(String speed) {
+        this.currentSpeed = speed;
+        this.animationDelay = animationService.getSpeedDelay(speed);
+        if (timer != null) {
+            timer.setDelay(animationDelay);
+        }
+    }
+
+    // =================== ANIMAÇÃO ===================
     private void initializeShapes() {
         shapes.clear();
         for (int i = 0; i < 15; i++) {
@@ -57,6 +87,29 @@ public class AnimatedBackgroundPanel extends JPanel {
                     currentColors[random.nextInt(currentColors.length)]
             ));
         }
+    }
+
+    private void startAnimation() {
+        timer = new Timer(animationDelay, e -> {
+            updateAnimation();
+            repaint();
+        });
+        threadManager.setMainAnimationTimer(timer);
+        timer.start();
+    }
+
+    private void updateAnimation() {
+        for (AnimatedShape shape : shapes) {
+            shape.update(getWidth(), getHeight());
+        }
+    }
+
+    public void stopAnimation() {
+        if (timer != null) timer.stop();
+    }
+
+    public void resumeAnimation() {
+        if (timer != null && !timer.isRunning()) timer.start();
     }
 
     @Override
@@ -72,52 +125,7 @@ public class AnimatedBackgroundPanel extends JPanel {
         }
     }
 
-    private void startAnimation() {
-        timer = new Timer(animationSpeed, e -> {
-            updateAnimation();
-            repaint();
-        });
-        threadManager.setMainAnimationTimer(timer);
-        timer.start();
-    }
-
-    private void updateAnimation() {
-        for (AnimatedShape shape : shapes) {
-            shape.update(getWidth(), getHeight());
-        }
-    }
-
-    // Public methods for external control
-    public void setPattern(String pattern) {
-        this.currentPattern = pattern;
-        initializeShapes();
-    }
-
-    public void setColorScheme(String scheme) {
-        this.currentColors = animationService.getColorScheme(scheme);
-        initializeShapes();
-    }
-
-    public void setSpeed(String speed) {
-        this.animationSpeed = animationService.getSpeedDelay(speed);
-        if (timer != null) {
-            timer.setDelay(animationSpeed);
-        }
-    }
-
-    public void stopAnimation() {
-        if (timer != null) {
-            timer.stop();
-        }
-    }
-
-    public void resumeAnimation() {
-        if (timer != null && !timer.isRunning()) {
-            timer.start();
-        }
-    }
-
-    // Inner class for animated shapes
+    // =================== CLASSE INTERNA ===================
     private class AnimatedShape {
         private float x, y, dx, dy;
         private Color color;
@@ -142,7 +150,6 @@ public class AnimatedBackgroundPanel extends JPanel {
             if (y <= 0 || y >= height - size) dy = -dy;
         }
 
-
         public void render(Graphics2D g2d, BackgroundRenderService renderService, String pattern) {
             switch (pattern) {
                 case "CIRCLES":
@@ -152,7 +159,7 @@ public class AnimatedBackgroundPanel extends JPanel {
                     renderService.renderSquare(g2d, x, y, size, color);
                     break;
                 case "STARS":
-                    renderService.renderStar(g2d, x + size/2, y + size/2, size/2, color, rotation);
+                    renderService.renderStar(g2d, x + size / 2, y + size / 2, size / 2, color, rotation);
                     break;
                 case "WAVES":
                     renderService.renderWave(g2d, x, y, size, color, rotation);

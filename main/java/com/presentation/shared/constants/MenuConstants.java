@@ -47,4 +47,9 @@ public class MenuConstants {
     // Diálogos
     public static final String DIALOG_TITLE_EXITING = "Confirmação de Saída";
     public static final String DIALOG_MESSAGE_EXITING = "Você tem certeza que deseja sair?";
+
+    // Configurações de animação
+    public static final int DEFAULT_ANIMATION_SPEED = 50;
+    public static final int MIN_ANIMATION_SPEED = 10;
+    public static final int MAX_ANIMATION_SPEED = 200;
 }
