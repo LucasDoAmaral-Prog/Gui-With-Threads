@@ -1,16 +1,14 @@
 package com.basicgui;
 
 import javax.swing.*;
-import com.presentation.view.AnimatedBackgroundPanel;
-
-import com.presentation.view.MainFrame;
-import javax.swing.SwingUtilities;
+import com.presentation.controller.MainController;
 
 public class Main {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
-            new MainFrame();
+            // Cria e exibe a janela principal
+            MainController mainFrame = new MainController();
+            mainFrame.setVisible(true);
         });
     }
 }
-
