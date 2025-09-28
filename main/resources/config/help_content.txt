@@ -1,0 +1,13 @@
+SISTEMA DE AJUDA AVANÇADO
+
+Este é um conteúdo personalizado carregado de arquivo externo.
+Você pode editar este arquivo para personalizar o conteúdo da ajuda.
+
+FUNCIONALIDADES:
+- Texto rolável
+- Múltiplas abas
+- Imagens integradas
+- Botões interativos
+- Impressão integrada
+
+Para mais informações, consulte as outras abas do sistema de ajuda.
