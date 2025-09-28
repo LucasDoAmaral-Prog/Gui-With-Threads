@@ -13,6 +13,11 @@ public class StatusBarConstants {
     public static final String STATUS_FILE_CLOSING = "Fechando Arquivo...";
     public static final String STATUS_ERROR_OPENING_FILE = "Erro ao abrir arquivo";
 
+    // Constantes da barra de status relativas as configurações do background
+    public static final String STATUS_UPDATED_PATTERN = "Padrão atualizado";
+    public static final String STATUS_UPDATED_COLOR = "Esquema de cores atualizado";
+    public static final String STATUS_UPDATED_SPEED= "Velocidade atualizada";
+
     // Diversos
     public static final int DELAY_AFTER_ERROR = 3000;
 }

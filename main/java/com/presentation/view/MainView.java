@@ -2,6 +2,7 @@ package com.presentation.view;
 
 import com.presentation.controller.ConfigController;
 import com.presentation.controller.MenuController;
+import com.presentation.shared.constants.StatusBarConstants;
 import com.presentation.shared.constants.UIConstants;
 import com.presentation.shared.util.UIUtils;
 
@@ -95,6 +96,12 @@ public class MainView extends JFrame {
 
     public void setStatus(String message) {
         statusBar.setText(message);
+    }
+
+    public void setStatusWithDelay(String status) {
+        new javax.swing.Timer(StatusBarConstants.DELAY_AFTER_ERROR, evt -> {
+            statusBar.setText(status);
+        }).start();
     }
 
     public ConfigController getConfigController() {
