@@ -56,6 +56,7 @@ public class MenuController extends MenuListener {
         } catch (Exception e) {
             mainView.setStatus(StatusBarConstants.STATUS_ERROR_OPENING_FILE + ": " + e.getMessage());
             mainView.clearMainAreaContent();
+            // Adicionando delay entre o status de erro e o status pronto para que o usuário possa ler a mensagem de erro
             new javax.swing.Timer(StatusBarConstants.DELAY_AFTER_ERROR, evt -> {
                 mainView.setStatus(StatusBarConstants.STATUS_READY);
             }).start();

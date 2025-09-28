@@ -1,5 +1,6 @@
 package com.presentation.shared.util;
 
+import javax.swing.*;
 import java.awt.*;
 
 public class UIUtils {
@@ -16,5 +17,10 @@ public class UIUtils {
         g2d.drawString("?", 12, 22);
         g2d.dispose();
         return icon;
+    }
+
+    // Facilita a exibição de mensagens para o usuário
+    public static void showMessage(String message, String title, int messageType) {
+        JOptionPane.showMessageDialog(null, message, title, messageType);
     }
 }

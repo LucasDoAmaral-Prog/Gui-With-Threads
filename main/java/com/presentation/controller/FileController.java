@@ -6,10 +6,10 @@ import com.presentation.shared.constants.FileConstants;
 import com.presentation.shared.exception.DirectoryNotFoundException;
 import com.presentation.shared.exception.FileNotSelectedException;
 import com.presentation.shared.exception.FileReadException;
+import com.presentation.shared.util.UIUtils;
 
 import javax.swing.*;
 import java.io.File;
-import java.io.IOException;
 
 public class FileController {
 
@@ -21,29 +21,23 @@ public class FileController {
     }
 
     public String openFile() throws FileReadException, DirectoryNotFoundException, FileNotSelectedException {
-        FileChooserManager fileChooser = new FileChooserManager(FileConstants.class.getResource(FileConstants.DEFAULT_DIR_PATH).getPath());
+        // Possibilita a classe extrair o caminho do diretório inicial de dentro da 'Resources root'
+        String initialDir = FileConstants.class
+                .getResource(FileConstants.DEFAULT_DIR_PATH)
+                .getPath();
+        FileChooserManager fileChooser = new FileChooserManager(initialDir);
         File selectedFile;
 
-        try {
-            selectedFile = fileChooser.openFileDialog();
-        } catch (DirectoryNotFoundException e) {
-            showDirectoryNotFoundMessage(e);
-            throw e;
-        }
+        selectedFile = fileChooser.openFileDialog();
 
         if (selectedFile == null) {
-            showMessage("Operação cancelada: nenhum arquivo foi selecionado.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+            UIUtils.showMessage("Operação cancelada: nenhum arquivo foi selecionado.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
             throw new FileNotSelectedException("Nenhum arquivo foi selecionado.");
         }
 
-        try {
-            String content = fileService.openFile(selectedFile);
-            this.currentFile = selectedFile;
-            return content;
-        } catch (FileReadException e) {
-            showMessage("Error reading file: " + e.getMessage(), "File Read Error", JOptionPane.ERROR_MESSAGE);
-            throw e;
-        }
+        String content = fileService.openFile(selectedFile);
+        this.currentFile = selectedFile;
+        return content;
     }
 
     public String getCurrentFileName() {
@@ -59,7 +53,4 @@ public class FileController {
         );
     }
 
-    private void showMessage(String message, String title, int messageType) {
-        JOptionPane.showMessageDialog(null, message, title, messageType);
-    }
 }
