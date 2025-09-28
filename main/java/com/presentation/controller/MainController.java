@@ -2,6 +2,8 @@ package com.presentation.controller;
 
 import com.presentation.shared.constants.StatusBarConstants;
 import com.presentation.view.MainView;
+import com.presentation.shared.util.UIUtils;
+
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -22,6 +24,8 @@ public class MainController {
                 onWindowClosing();
             }
         });
+
+        UIUtils.configureOptionPaneBntOptions();
     }
 
     private void onWindowClosing() {
