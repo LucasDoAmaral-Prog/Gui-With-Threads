@@ -41,16 +41,8 @@ public class FileController {
     }
 
     public String getCurrentFileName() {
-        return currentFile != null ? currentFile.getName() : "Nenhum arquivo aberto";
+        return currentFile.getName();
     }
 
-    private void showDirectoryNotFoundMessage(DirectoryNotFoundException e) {
-        JOptionPane.showMessageDialog(
-                null,
-                "Error accessing initial directory: " + e.getMessage(),
-                "Directory Not Found",
-                JOptionPane.ERROR_MESSAGE
-        );
-    }
 
 }

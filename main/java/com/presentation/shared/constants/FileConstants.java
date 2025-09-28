@@ -18,6 +18,7 @@ public final class FileConstants {
     // Mensagens de erro
     public static final String CANCELED_OPERATION = "Operação cancelada";
     public static final String EXCEPTION_NO_FILE_SELECTED = "Nenhum arquivo foi selecionado";
+    public static final String EXCEPTION_NO_FILE_OPENED = "Nenhum arquivo está aberto";
 
     
     // Codificação
