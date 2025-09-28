@@ -84,24 +84,18 @@ public class MenuController extends MenuListener {
     }
 
     private void configurePatterns() {
-        /* substitua o bloco de código a seguir pela lógica do que deve acontecer quando este botão é clicado */
-        String message = "Configuração de padrão selecionado";
-        JOptionPane.showMessageDialog(mainView, message, "Menu Action" , JOptionPane.INFORMATION_MESSAGE);
-        mainView.setStatus(message);
+        mainView.getConfigController().configurePattern();
+        mainView.setStatus("Padrão atualizado");
     }
 
     private void configureColors() {
-        /* substitua o bloco de código a seguir pela lógica do que deve acontecer quando este botão é clicado */
-        String message = "Configuração de cor selecionado";
-        JOptionPane.showMessageDialog(mainView, message, "Menu Action" , JOptionPane.INFORMATION_MESSAGE);
-        mainView.setStatus(message);
+        mainView.getConfigController().configureColor();
+        mainView.setStatus("Esquema de cores atualizado");
     }
 
     private void configureSpeed() {
-        /* substitua o bloco de código a seguir pela lógica do que deve acontecer quando este botão é clicado */
-        String message = "Configuração de velocidade selecionado";
-        JOptionPane.showMessageDialog(mainView, message, "Menu Action" , JOptionPane.INFORMATION_MESSAGE);
-        mainView.setStatus(message);
+        mainView.getConfigController().configureSpeed();
+        mainView.setStatus("Velocidade atualizada");
     }
 
     private void showHelp() {
