@@ -2,10 +2,8 @@ package com.presentation.domain.service;
 
 import java.awt.*;
 import java.awt.geom.*;
-import java.util.Random;
 
 public class BackgroundRenderService {
-    private Random random = new Random();
 
     public void renderBackground(Graphics2D g2d, int width, int height) {
         GradientPaint gradient = new GradientPaint(
