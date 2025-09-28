@@ -1,5 +1,8 @@
 package com.presentation.dialog;
 
+import com.presentation.shared.constants.AnimationConstants;
+import com.presentation.shared.constants.UIConstants;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -11,20 +14,20 @@ public class ColorConfigDialog extends JDialog {
     private static final Dimension DIALOG_SIZE = new Dimension(300, 150);
 
     public ColorConfigDialog(JFrame parent, String currentScheme) {
-        super(parent, "Selecionar Esquema de Cores", true);
+        super(parent, AnimationConstants.COLOR_CONFIG_DIALOG_TITLE, true);
 
-        comboColors = new JComboBox<>(new String[]{"PASTEL", "NATURE", "WARM"});
+        comboColors = new JComboBox<>(AnimationConstants.COLOR_OPTIONS);
         comboColors.setSelectedItem(currentScheme);
         comboColors.setPreferredSize(new Dimension(150, 25));
 
-        JButton okButton = new JButton("OK");
+        JButton okButton = new JButton(UIConstants.BTN_OK);
         okButton.setPreferredSize(new Dimension(100, 25));
         okButton.addActionListener(e -> {
             selectedScheme = (String) comboColors.getSelectedItem();
             dispose();
         });
 
-        JButton cancelButton = new JButton("Cancelar");
+        JButton cancelButton = new JButton(UIConstants.BTN_NO);
         cancelButton.setPreferredSize(new Dimension(100, 25));
         cancelButton.addActionListener(e -> {
             selectedScheme = null;
@@ -40,7 +43,7 @@ public class ColorConfigDialog extends JDialog {
 
         gbc.gridx = 0;
         gbc.gridy = 0;
-        centerPanel.add(new JLabel("Escolha o esquema de cores:"), gbc);
+        centerPanel.add(new JLabel(AnimationConstants.COLOR_CONFIG_DIALOG_TEXT), gbc);
 
         gbc.gridx = 1;
         centerPanel.add(comboColors, gbc);

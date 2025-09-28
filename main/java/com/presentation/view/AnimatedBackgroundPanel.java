@@ -3,6 +3,8 @@ package com.presentation.view;
 import com.presentation.domain.service.AnimationService;
 import com.presentation.domain.service.BackgroundRenderService;
 import com.presentation.infrastructure.thread.ThreadManager;
+import com.presentation.shared.constants.AnimationConstants;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
@@ -24,7 +26,7 @@ public class AnimatedBackgroundPanel extends JPanel {
 
     // Configurações atuais
     private String currentPattern = "CIRCLES";
-    private String currentColorScheme = "COOL";
+    private String currentColorScheme = AnimationConstants.COLOR_OPTIONS[0];
     private String currentSpeed = "MEDIUM";
 
     private Color[] currentColors;

@@ -1,5 +1,6 @@
 package com.presentation.controller;
 
+import com.presentation.shared.constants.AnimationConstants;
 import com.presentation.view.AnimatedBackgroundPanel;
 import com.presentation.domain.model.BackgroundPattern;
 import java.awt.Color;
@@ -21,11 +22,11 @@ public class AnimationController {
     private String getSchemeNameFromColors(Color[] colors) {
         // Lógica simples para determinar esquema baseado nas cores
         if (colors.length > 0 && colors[0].getBlue() > 200) {
-            return "COOL";
+            return AnimationConstants.COLOR_OPTIONS[0];
         } else if (colors.length > 0 && colors[0].getRed() > 200) {
-            return "WARM";
+            return AnimationConstants.COLOR_OPTIONS[1];
         } else {
-            return "NATURE";
+            return AnimationConstants.COLOR_OPTIONS[2];
         }
     }
 }

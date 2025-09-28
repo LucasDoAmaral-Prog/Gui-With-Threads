@@ -1,5 +1,7 @@
 package com.presentation.domain.service;
 
+import com.presentation.shared.constants.AnimationConstants;
+
 import java.awt.Color;
 import java.util.HashMap;
 import java.util.Map;
@@ -17,17 +19,17 @@ public class AnimationService {
 
     private void initializeColorSchemes() {
         colorSchemes = new HashMap<>();
-        colorSchemes.put("COOL", new Color[]{
+        colorSchemes.put(AnimationConstants.COLOR_OPTIONS[0], new Color[]{
                 new Color(64, 128, 255, 120), new Color(64, 255, 255, 120),
                 new Color(128, 64, 255, 120), new Color(255, 255, 255, 120)
         });
-        colorSchemes.put("WARM", new Color[]{
-                new Color(255, 128, 64, 120), new Color(255, 64, 64, 120),
-                new Color(255, 255, 64, 120), new Color(255, 128, 128, 120)
-        });
-        colorSchemes.put("NATURE", new Color[]{
+        colorSchemes.put(AnimationConstants.COLOR_OPTIONS[1], new Color[]{
                 new Color(64, 255, 64, 120), new Color(128, 255, 64, 120),
                 new Color(64, 128, 64, 120), new Color(255, 255, 128, 120)
+        });
+        colorSchemes.put(AnimationConstants.COLOR_OPTIONS[2], new Color[]{
+                new Color(255, 128, 64, 120), new Color(255, 64, 64, 120),
+                new Color(255, 255, 64, 120), new Color(255, 128, 128, 120)
         });
     }
 
@@ -45,7 +47,7 @@ public class AnimationService {
     }
 
     public Color[] getColorScheme(String schemeName) {
-        return colorSchemes.getOrDefault(schemeName.toUpperCase(), colorSchemes.get("COOL"));
+        return colorSchemes.getOrDefault(schemeName, colorSchemes.get(AnimationConstants.COLOR_OPTIONS[0]));
     }
 
     public int getSpeedDelay(String speedName) {
