@@ -11,10 +11,7 @@ public class UIConstants {
 
 
     // Constantes de Diálogos
-    public static final String DIALOG_TITLE_ERROR = "Erro";
-    public static final String DIALOG_TITLE_INFO = "Informação";
-    public static final String DIALOG_TITLE_WARNING = "Aviso";
-    public static final String DIALOG_TITLE_CONFIRM = "Confirmação";
+    public static final String DIALOG_TITLE_DEFAULT = "Aviso";
 
     // Mensagens padrão
     public static final String MESSAGE_FEATURE_NOT_IMPLEMENTED = "Feature a ser implementada";

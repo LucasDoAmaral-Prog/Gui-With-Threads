@@ -1,5 +1,7 @@
 package com.presentation.shared.util;
 
+import com.presentation.shared.constants.UIConstants;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -19,7 +21,11 @@ public class UIUtils {
         return icon;
     }
 
-    // Facilita a exibição de mensagens para o usuário
+    // Facilitam a exibição de mensagens para o usuário com título padrão ou personalizado
+    public static void showMessage(String message, int messageType) {
+        showMessage(message, UIConstants.DIALOG_TITLE_DEFAULT, messageType);
+    }
+
     public static void showMessage(String message, String title, int messageType) {
         JOptionPane.showMessageDialog(null, message, title, messageType);
     }

@@ -31,8 +31,8 @@ public class FileController {
         selectedFile = fileChooser.openFileDialog();
 
         if (selectedFile == null) {
-            UIUtils.showMessage("Operação cancelada: nenhum arquivo foi selecionado.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
-            throw new FileNotSelectedException("Nenhum arquivo foi selecionado.");
+            UIUtils.showMessage(FileConstants.CANCELED_OPERATION+": "+FileConstants.EXCEPTION_NO_FILE_SELECTED, JOptionPane.INFORMATION_MESSAGE);
+            throw new FileNotSelectedException(FileConstants.EXCEPTION_NO_FILE_SELECTED);
         }
 
         String content = fileService.openFile(selectedFile);
