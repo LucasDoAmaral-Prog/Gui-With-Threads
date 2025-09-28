@@ -32,11 +32,9 @@ public class AboutDialog extends JDialog {
     private void createComponents() {
         setLayout(new BorderLayout());
 
-        // Main content panel
         JPanel mainPanel = createMainPanel();
         add(mainPanel, BorderLayout.CENTER);
 
-        // Footer with button
         JPanel footerPanel = createFooterPanel();
         add(footerPanel, BorderLayout.SOUTH);
     }
@@ -57,7 +55,6 @@ public class AboutDialog extends JDialog {
 
         panel.add(Box.createVerticalStrut(UIConstants.PADDING_LARGE));
 
-        // App Name
         JLabel nameLabel = new JLabel(AppConstants.APP_NAME);
         nameLabel.setFont(UIConstants.TITLE_FONT);
         nameLabel.setForeground(UIConstants.TEXT_PRIMARY);
@@ -66,7 +63,6 @@ public class AboutDialog extends JDialog {
 
         panel.add(Box.createVerticalStrut(UIConstants.PADDING_SMALL));
 
-        // Version
         JLabel versionLabel = new JLabel("Versão " + AppConstants.APP_VERSION);
         versionLabel.setFont(UIConstants.NORMAL_FONT);
         versionLabel.setForeground(UIConstants.TEXT_SECONDARY);
@@ -75,7 +71,6 @@ public class AboutDialog extends JDialog {
 
         panel.add(Box.createVerticalStrut(UIConstants.PADDING_MEDIUM));
 
-        // Description
         JTextArea descArea = new JTextArea(AppConstants.APP_DESCRIPTION);
         descArea.setFont(UIConstants.NORMAL_FONT);
         descArea.setForeground(UIConstants.TEXT_PRIMARY);
@@ -88,7 +83,7 @@ public class AboutDialog extends JDialog {
 
         panel.add(Box.createVerticalStrut(UIConstants.PADDING_MEDIUM));
 
-        // Authors
+
         JLabel authorsLabel = new JLabel(AppConstants.APP_AUTHORS);
         authorsLabel.setFont(UIConstants.SMALL_FONT);
         authorsLabel.setForeground(UIConstants.TEXT_MUTED);
@@ -97,7 +92,6 @@ public class AboutDialog extends JDialog {
 
         panel.add(Box.createVerticalStrut(UIConstants.PADDING_SMALL));
 
-        // Copyright
         JLabel copyrightLabel = new JLabel(AppConstants.APP_COPYRIGHT);
         copyrightLabel.setFont(UIConstants.SMALL_FONT);
         copyrightLabel.setForeground(UIConstants.TEXT_MUTED);
@@ -106,7 +100,6 @@ public class AboutDialog extends JDialog {
 
         panel.add(Box.createVerticalStrut(UIConstants.PADDING_SMALL));
 
-        // Build date
         JLabel buildLabel = new JLabel("Build: " + LocalDate.now().toString());
         buildLabel.setFont(UIConstants.SMALL_FONT);
         buildLabel.setForeground(UIConstants.TEXT_MUTED);
@@ -117,23 +110,19 @@ public class AboutDialog extends JDialog {
     }
 
     private JLabel createAppIcon() {
-        // Create a custom app icon
         int size = 64;
         java.awt.image.BufferedImage img = new java.awt.image.BufferedImage(size, size, java.awt.image.BufferedImage.TYPE_INT_ARGB);
         Graphics2D g2d = img.createGraphics();
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
-        // Background circle
         g2d.setColor(UIConstants.PRIMARY_COLOR);
         g2d.fillOval(4, 4, size-8, size-8);
 
-        // Inner elements (representing animation)
         g2d.setColor(Color.WHITE);
         g2d.fillOval(size/2 - 4, size/4 - 2, 8, 8);
         g2d.fillOval(size/4 - 3, size*3/4 - 3, 6, 6);
         g2d.fillOval(size*3/4 - 3, size*3/4 - 3, 6, 6);
 
-        // Center dot
         g2d.setColor(UIConstants.SUCCESS_COLOR);
         g2d.fillOval(size/2 - 3, size/2 - 3, 6, 6);
 
@@ -159,7 +148,6 @@ public class AboutDialog extends JDialog {
         okButton.setPreferredSize(new Dimension(UIConstants.BUTTON_WIDTH, UIConstants.BUTTON_HEIGHT));
         okButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
-        // Hover effect
         okButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 okButton.setBackground(UIConstants.PRIMARY_COLOR.darker());
@@ -175,21 +163,22 @@ public class AboutDialog extends JDialog {
     }
 
     private void setupEventListeners() {
-        // Find and setup OK button listener
-        findOKButton(getContentPane()).addActionListener(e -> dispose());
+        findAndConfigureOKButton(getContentPane());
     }
 
-    private JButton findOKButton(Container container) {
+    private void findAndConfigureOKButton(Container container) {
         for (Component component : container.getComponents()) {
-            if (component instanceof JButton && ((JButton) component).getText().equals("OK")) {
-                return (JButton) component;
+            if (component instanceof JButton) {
+                JButton button = (JButton) component;
+                if (button.getText().equals("OK")) {
+                    button.addActionListener(e -> dispose());
+                    return;
+                }
             }
             if (component instanceof Container) {
-                JButton button = findOKButton((Container) component);
-                if (button != null) return button;
+                findAndConfigureOKButton((Container) component);
             }
         }
-        return new JButton(); // Fallback
     }
 
     public static void showAboutDialog(JFrame parent) {
