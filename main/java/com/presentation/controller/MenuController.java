@@ -1,5 +1,7 @@
 package com.presentation.controller;
 
+import com.presentation.dialog.about.AboutDialog;
+import com.presentation.dialog.help.HelpDialog;
 import com.presentation.shared.constants.MenuConstants;
 import com.presentation.shared.constants.StatusBarConstants;
 import com.presentation.shared.listener.MenuListener;
@@ -99,16 +101,16 @@ public class MenuController extends MenuListener {
     }
 
     private void showHelp() {
-        /* substitua o bloco de código a seguir pela lógica do que deve acontecer quando este botão é clicado */
-        String message = "Ajuda selecionado";
-        JOptionPane.showMessageDialog(mainView, message, "Menu Action" , JOptionPane.INFORMATION_MESSAGE);
-        mainView.setStatus(message);
+        HelpDialog.showDialog(mainView);
+        mainView.setStatus("Sistema de ajuda detalhado exibido com atalhos atualizados");
     }
 
+
     private void showAbout() {
-        /* substitua o bloco de código a seguir pela lógica do que deve acontecer quando este botão é clicado */
-        String message = "Sobre selecionado";
-        JOptionPane.showMessageDialog(mainView, message, "Menu Action" , JOptionPane.INFORMATION_MESSAGE);
-        mainView.setStatus(message);
+        AboutDialog.showDialog(mainView);
+        mainView.setStatus("Informações detalhadas sobre o projeto exibidas");
     }
+
+
+
 }
