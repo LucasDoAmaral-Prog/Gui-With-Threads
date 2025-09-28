@@ -1,5 +1,6 @@
 package com.presentation.infrastructure.file;
 
+import com.presentation.shared.constants.FileConstants;
 import com.presentation.shared.exception.DirectoryNotFoundException;
 
 import javax.swing.*;
@@ -25,18 +26,18 @@ public class FileChooserManager {
             chooser.setCurrentDirectory(initialDir);
         } else {
             // Se o diretório inicial não existir, tenta o diretório do usuário
-            String userHome = System.getProperty("user.home");
+            String userHome = System.getProperty(FileConstants.USER_DIR_PATH);
             File defaultDir = new File(userHome);
             if (defaultDir.exists()) {
                 chooser.setCurrentDirectory(defaultDir);
             } else {
-                throw new DirectoryNotFoundException("Initial directory not found: " + defaultDirPath + " nor user home: " + userHome);
+                throw new DirectoryNotFoundException(FileConstants.ERROR_NO_DIRS_FOUND);
             }
         }
 
-        chooser.setDialogTitle("Abrir Arquivo");
+        chooser.setDialogTitle(FileConstants.DIALOG_TITLE_OPEN_FILE);
 
-        FileNameExtensionFilter textFilter = new FileNameExtensionFilter("Arquivos de Texto (*.txt)", "txt");
+        FileNameExtensionFilter textFilter = new FileNameExtensionFilter(FileConstants.TEXT_EXTENSIONS_DESCRIPTION, FileConstants.TEXT_EXTENSIONS);
         chooser.setFileFilter(textFilter);
         chooser.setAcceptAllFileFilterUsed(false);
 

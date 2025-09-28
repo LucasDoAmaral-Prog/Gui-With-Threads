@@ -12,7 +12,7 @@ import java.util.Objects;
 public class MainView extends JFrame {
 
     private JLabel fileTitleLabel;
-    private JTextArea mainArea; // Agora é JTextArea para texto simples e quebra automática
+    private JTextArea mainArea;
     private StatusBar statusBar;
     private AppMenuBar menuBar;
 

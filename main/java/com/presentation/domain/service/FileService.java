@@ -4,7 +4,6 @@ import com.presentation.infrastructure.file.FileReader;
 import com.presentation.infrastructure.file.FileValidator;
 import com.presentation.shared.exception.FileReadException;
 
-import javax.swing.*;
 import java.io.File;
 
 public class FileService {
