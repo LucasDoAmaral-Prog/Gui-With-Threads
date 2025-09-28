@@ -1,12 +1,10 @@
 package com.presentation.infrastructure.file;
 
 import com.presentation.shared.constants.FileConstants;
-import com.presentation.shared.constants.UIConstants;
 import com.presentation.shared.exception.DirectoryNotFoundException;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import java.awt.*;
 import java.io.File;
 
 public class FileChooserManager {

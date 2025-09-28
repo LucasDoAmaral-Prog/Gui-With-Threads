@@ -30,7 +30,7 @@ public class ColorConfigDialog extends JDialog {
         });
 
         // Botão Cancelar
-        JButton cancelButton = new JButton(UIConstants.BTN_NO);
+        JButton cancelButton = new JButton(UIConstants.BTN_CANCEL);
         cancelButton.setPreferredSize(new Dimension(100, 25));
         cancelButton.addActionListener(e -> {
             selectedIndex = null; // não altera

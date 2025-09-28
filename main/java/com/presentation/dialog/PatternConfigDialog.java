@@ -1,6 +1,7 @@
 package com.presentation.dialog;
 
 import com.presentation.shared.constants.AnimationConstants;
+import com.presentation.shared.constants.UIConstants;
 
 import javax.swing.*;
 import java.awt.*;
@@ -19,14 +20,14 @@ public class PatternConfigDialog extends JDialog {
         comboPatterns.setSelectedIndex(currentIndex); // seleciona pelo índice
         comboPatterns.setPreferredSize(new Dimension(180, 25));
 
-        JButton okButton = new JButton("OK");
+        JButton okButton = new JButton(UIConstants.BTN_OK);
         okButton.setPreferredSize(new Dimension(100, 25));
         okButton.addActionListener(e -> {
             selectedIndex = comboPatterns.getSelectedIndex(); // pega índice selecionado
             dispose();
         });
 
-        JButton cancelButton = new JButton("Cancelar");
+        JButton cancelButton = new JButton(UIConstants.BTN_CANCEL);
         cancelButton.setPreferredSize(new Dimension(100, 25));
         cancelButton.addActionListener(e -> {
             selectedIndex = null; // não altera

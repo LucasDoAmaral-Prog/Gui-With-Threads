@@ -1,6 +1,7 @@
 package com.presentation.dialog;
 
 import com.presentation.shared.constants.AnimationConstants;
+import com.presentation.shared.constants.UIConstants;
 
 import javax.swing.*;
 import java.awt.*;
@@ -21,7 +22,7 @@ public class SpeedConfigDialog extends JDialog {
         comboSpeeds.setPreferredSize(new Dimension(180, 25));
 
         // Botão OK
-        JButton okButton = new JButton("OK");
+        JButton okButton = new JButton(UIConstants.BTN_OK);
         okButton.setPreferredSize(new Dimension(100, 25));
         okButton.addActionListener(e -> {
             selectedIndex = comboSpeeds.getSelectedIndex(); // pega índice selecionado
@@ -29,7 +30,7 @@ public class SpeedConfigDialog extends JDialog {
         });
 
         // Botão Cancelar
-        JButton cancelButton = new JButton("Cancelar");
+        JButton cancelButton = new JButton(UIConstants.BTN_CANCEL);
         cancelButton.setPreferredSize(new Dimension(100, 25));
         cancelButton.addActionListener(e -> {
             selectedIndex = null; // não altera
