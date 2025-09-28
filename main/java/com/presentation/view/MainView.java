@@ -11,9 +11,11 @@ import java.util.Objects;
 
 public class MainView extends JFrame {
 
-    private JTextArea mainArea;
+    private JLabel fileTitleLabel;
+    private JEditorPane mainArea;
     private StatusBar statusBar;
     private AppMenuBar menuBar;
+    private String currentFileName; // mantém referência ao nome do arquivo exibido
 
     public MainView() {
         setTitle(UIConstants.MAIN_WINDOW_TITLE);
@@ -27,11 +29,17 @@ public class MainView extends JFrame {
             );
             setIconImage(logo.getImage());
         } catch (Exception e) {
-            // Se não conseguir carregar, pode usar um ícone padrão
             setIconImage(UIUtils.createDefaultIcon());
         }
 
-        mainArea = new JTextArea();
+        // Título do arquivo no topo
+        fileTitleLabel = new JLabel("", SwingConstants.CENTER);
+        fileTitleLabel.setFont(new Font("Arial", Font.BOLD, 16));
+        fileTitleLabel.setBorder(BorderFactory.createEmptyBorder(8, 0, 8, 0));
+
+        // Área principal usando HTML
+        mainArea = new JEditorPane();
+        mainArea.setContentType("text/html");
         mainArea.setEditable(false);
         JScrollPane scrollPane = new JScrollPane(mainArea);
 
@@ -41,6 +49,7 @@ public class MainView extends JFrame {
         setJMenuBar(menuBar.getMenuBar());
 
         setLayout(new BorderLayout());
+        add(fileTitleLabel, BorderLayout.NORTH); // título do arquivo no topo
         add(scrollPane, BorderLayout.CENTER);
         add(statusBar.getComponent(), BorderLayout.SOUTH);
     }
@@ -49,11 +58,15 @@ public class MainView extends JFrame {
         statusBar.setText(message);
     }
 
-    public void setMainAreaText(String text) {
-        mainArea.setText(text);
+    public void setMainAreaContent(String fileName, String htmlContent) {
+        this.currentFileName = fileName;
+        fileTitleLabel.setText(fileName);
+        mainArea.setText(htmlContent);
     }
 
-    public void clearMainAreaText() {
+    public void clearMainAreaContent() {
+        this.currentFileName = null;
+        fileTitleLabel.setText("");
         mainArea.setText("");
     }
 

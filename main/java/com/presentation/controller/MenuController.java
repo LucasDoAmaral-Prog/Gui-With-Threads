@@ -50,11 +50,12 @@ public class MenuController extends MenuListener {
         FileController fileController = new FileController();
         try {
             String fileContent = fileController.openFile();
-            mainView.setMainAreaText(fileContent);
+            String fileName = fileController.getCurrentFileName();
+            mainView.setMainAreaContent(fileName, fileContent);
             mainView.setStatus(StatusBarConstants.STATUS_FILE_OPENED);
         } catch (Exception e) {
             mainView.setStatus(StatusBarConstants.STATUS_ERROR_OPENING_FILE + ": " + e.getMessage());
-            mainView.setMainAreaText("");
+            mainView.clearMainAreaContent();
             new javax.swing.Timer(StatusBarConstants.DELAY_AFTER_ERROR, evt -> {
                 mainView.setStatus(StatusBarConstants.STATUS_READY);
             }).start();
@@ -63,7 +64,7 @@ public class MenuController extends MenuListener {
 
     private void closeFile() {
         mainView.setStatus(StatusBarConstants.STATUS_FILE_CLOSING);
-        mainView.clearMainAreaText();
+        mainView.clearMainAreaContent();
         mainView.setStatus(StatusBarConstants.STATUS_READY);
     }
     private void exit() {
