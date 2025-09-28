@@ -6,8 +6,6 @@ import com.presentation.shared.exception.DirectoryNotFoundException;
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.io.File;
-import java.net.URL;
-
 
 public class FileChooserManager {
 
@@ -41,7 +39,6 @@ public class FileChooserManager {
         chooser.setFileFilter(textFilter);
         chooser.setAcceptAllFileFilterUsed(false);
 
-        // Show the dialog
         int result = chooser.showOpenDialog(null);
 
         if (result == JFileChooser.APPROVE_OPTION) {

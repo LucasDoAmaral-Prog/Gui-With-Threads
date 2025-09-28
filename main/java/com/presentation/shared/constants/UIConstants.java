@@ -22,8 +22,4 @@ public class UIConstants {
     public static final int TEXT_AREA_TITLE_HORIZONTAL_BORDER = 10;
     public static final int TEXT_AREA_TITLE_VERTICAL_BORDER = 0;
 
-    // Configurações de animação
-    public static final int DEFAULT_ANIMATION_SPEED = 50;
-    public static final int MIN_ANIMATION_SPEED = 10;
-    public static final int MAX_ANIMATION_SPEED = 200;
 }
