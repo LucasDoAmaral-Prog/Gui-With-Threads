@@ -9,7 +9,7 @@ public class StatusBarConstants {
 
     // Constantes da barra de status relativas a manipulação de arquivos
     public static final String STATUS_FILE_OPENING = "Abrindo Arquivo...";
-    public static final String STATUS_FILE_OPENED = "Exibindo Arquivo...";
+    public static final String STATUS_FILE_OPENED = "Exibindo Arquivo";
     public static final String STATUS_FILE_CLOSING = "Fechando Arquivo...";
     public static final String STATUS_ERROR_OPENING_FILE = "Erro ao abrir arquivo";
 

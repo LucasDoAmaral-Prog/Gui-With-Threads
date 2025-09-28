@@ -32,15 +32,15 @@ public class MainView extends JFrame {
             setIconImage(UIUtils.createDefaultIcon());
         }
 
-        // Título do arquivo no topo
+        // Personalizando título
         fileTitleLabel = new JLabel("", SwingConstants.CENTER);
         fileTitleLabel.setFont(new Font("Arial", Font.BOLD, 16));
         fileTitleLabel.setBorder(BorderFactory.createEmptyBorder(8, 0, 8, 0));
 
-        // Área principal usando HTML
         mainArea = new JEditorPane();
-        mainArea.setContentType("text/html");
+        mainArea.setContentType("text");
         mainArea.setEditable(false);
+        mainArea.setFocusable(false);
         JScrollPane scrollPane = new JScrollPane(mainArea);
 
         statusBar = new StatusBar();
@@ -49,7 +49,7 @@ public class MainView extends JFrame {
         setJMenuBar(menuBar.getMenuBar());
 
         setLayout(new BorderLayout());
-        add(fileTitleLabel, BorderLayout.NORTH); // título do arquivo no topo
+        add(fileTitleLabel, BorderLayout.NORTH);
         add(scrollPane, BorderLayout.CENTER);
         add(statusBar.getComponent(), BorderLayout.SOUTH);
     }

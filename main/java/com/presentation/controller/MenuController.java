@@ -52,7 +52,7 @@ public class MenuController extends MenuListener {
             String fileContent = fileController.openFile();
             String fileName = fileController.getCurrentFileName();
             mainView.setMainAreaContent(fileName, fileContent);
-            mainView.setStatus(StatusBarConstants.STATUS_FILE_OPENED);
+            mainView.setStatus(StatusBarConstants.STATUS_FILE_OPENED + ": " + fileName);
         } catch (Exception e) {
             mainView.setStatus(StatusBarConstants.STATUS_ERROR_OPENING_FILE + ": " + e.getMessage());
             mainView.clearMainAreaContent();
