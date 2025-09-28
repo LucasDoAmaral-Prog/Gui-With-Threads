@@ -5,6 +5,8 @@ import com.presentation.shared.constants.StatusBarConstants;
 import com.presentation.shared.listener.MenuListener;
 import com.presentation.view.MainView;
 
+import java.io.File;
+
 import javax.swing.*;
 
 public class MenuController extends MenuListener {
@@ -48,18 +50,25 @@ public class MenuController extends MenuListener {
     private void openFile() {
         mainView.setStatus(StatusBarConstants.STATUS_FILE_OPENING);
         FileController fileController = new FileController();
-        try {
-            String fileContent = fileController.openFile();
-            String fileName = fileController.getCurrentFileName();
-            mainView.setMainAreaContent(fileName, fileContent);
-            mainView.setStatus(StatusBarConstants.STATUS_FILE_OPENED + ": " + fileName);
-        } catch (Exception e) {
-            mainView.setStatus(StatusBarConstants.STATUS_ERROR_OPENING_FILE + ": " + e.getMessage());
-            mainView.clearMainAreaContent();
-            // Adicionando delay entre o status de erro e o status pronto para que o usuário possa ler a mensagem de erro
-            new javax.swing.Timer(StatusBarConstants.DELAY_AFTER_ERROR, evt -> {
-                mainView.setStatus(StatusBarConstants.STATUS_READY);
-            }).start();
+        JFileChooser chooser = new JFileChooser();
+        int result = chooser.showOpenDialog(mainView);
+        if (result == JFileChooser.APPROVE_OPTION) {
+            File selectedFile = chooser.getSelectedFile();
+            fileController.openFileWithThread(selectedFile, (fileContent, error) -> {
+                if (error == null) {
+                    String fileName = selectedFile.getName();
+                    mainView.setMainAreaContent(fileName, fileContent);
+                    mainView.setStatus(StatusBarConstants.STATUS_FILE_OPENED + ": " + fileName);
+                } else {
+                    mainView.setStatus(StatusBarConstants.STATUS_ERROR_OPENING_FILE + ": " + error.getMessage());
+                    mainView.clearMainAreaContent();
+                    new javax.swing.Timer(StatusBarConstants.DELAY_AFTER_ERROR, evt -> {
+                        mainView.setStatus(StatusBarConstants.STATUS_READY);
+                    }).start();
+                }
+            });
+        } else {
+            mainView.setStatus(StatusBarConstants.STATUS_READY);
         }
     }
 

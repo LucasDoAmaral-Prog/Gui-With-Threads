@@ -1,5 +1,4 @@
 package com.presentation.controller;
-
 import com.presentation.view.AnimatedBackgroundPanel;
 import com.presentation.domain.model.BackgroundPattern;
 import java.awt.Color;
