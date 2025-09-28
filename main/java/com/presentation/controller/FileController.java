@@ -63,4 +63,7 @@ public class FileController {
     }
 
 
+    public File getCurrentFile() {
+        return currentFile;
+    }
 }

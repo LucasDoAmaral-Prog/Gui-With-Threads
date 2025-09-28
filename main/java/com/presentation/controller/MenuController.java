@@ -6,6 +6,7 @@ import com.presentation.shared.listener.MenuListener;
 import com.presentation.view.MainView;
 
 import javax.swing.*;
+import java.io.File;
 
 public class MenuController extends MenuListener {
 
@@ -47,12 +48,32 @@ public class MenuController extends MenuListener {
 
     private void openFile() {
         mainView.setStatus(StatusBarConstants.STATUS_FILE_OPENING);
+
         FileController fileController = new FileController();
+
         try {
-            String fileContent = fileController.openFile();
-            String fileName = fileController.getCurrentFileName();
-            mainView.setMainAreaContent(fileName, fileContent);
-            mainView.setStatus(StatusBarConstants.STATUS_FILE_OPENED + ": " + fileName);
+            fileController.openFile();
+            File selectedFile = fileController.getCurrentFile();
+            String fileName   = selectedFile.getName();
+
+            // lê o conteúdo em background
+            fileController.openFileWithThread(
+                    selectedFile,
+                    (fileContent, ex) -> {
+                        if (ex == null) {
+                            SwingUtilities.invokeLater(() -> {
+                                mainView.setMainAreaContent(fileName, fileContent);
+                                mainView.setStatus(StatusBarConstants.STATUS_FILE_OPENED + ": " + fileName);
+                            });
+                        } else {
+                            SwingUtilities.invokeLater(() -> {
+                                mainView.setStatus(StatusBarConstants.STATUS_ERROR_OPENING_FILE + ": " + ex.getMessage());
+                                mainView.clearMainAreaContent();
+                                mainView.setStatusWithDelay(StatusBarConstants.STATUS_READY);
+                            });
+                        }
+                    }
+            );
         } catch (Exception e) {
             mainView.setStatus(StatusBarConstants.STATUS_ERROR_OPENING_FILE + ": " + e.getMessage());
             mainView.clearMainAreaContent();
