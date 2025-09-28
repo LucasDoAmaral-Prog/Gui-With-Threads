@@ -1,4 +1,4 @@
-package com.shared.constants;
+package com.presentation.shared.constants;
 
 public class AppConstants {
     // Application Info

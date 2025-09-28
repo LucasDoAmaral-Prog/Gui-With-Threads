@@ -1,7 +1,7 @@
 package com.presentation.dialog;
 
-import com.shared.constants.AppConstants;
-import com.shared.constants.UIConstants;
+import com.presentation.shared.constants.AppConstants;
+import com.presentation.shared.constants.UIConstants;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;

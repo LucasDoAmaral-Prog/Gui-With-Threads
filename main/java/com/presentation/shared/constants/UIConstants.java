@@ -1,5 +1,7 @@
 package com.presentation.shared.constants;
 
+import java.awt.*;
+
 public class UIConstants {
 
     // Constantes da Janela Principal
@@ -38,4 +40,40 @@ public class UIConstants {
     public static final int DEFAULT_ANIMATION_SPEED = 50;
     public static final int MIN_ANIMATION_SPEED = 10;
     public static final int MAX_ANIMATION_SPEED = 200;
+
+    // CORES PRINCIPAIS
+    public static final Color PRIMARY_COLOR = new Color(41, 128, 185);
+    public static final Color SECONDARY_COLOR = new Color(149, 165, 166);
+    public static final Color SUCCESS_COLOR = new Color(46, 204, 113);
+    public static final Color WARNING_COLOR = new Color(241, 196, 15);
+    public static final Color ERROR_COLOR = new Color(231, 76, 60);
+    public static final Color INFO_COLOR = new Color(52, 152, 219);
+
+    // CORES DE FUNDO
+    public static final Color DIALOG_BACKGROUND = new Color(248, 249, 250);
+    public static final Color PANEL_BACKGROUND = new Color(255, 255, 255);
+    public static final Color HEADER_BACKGROUND = new Color(236, 240, 241);
+
+    // CORES DE TEXTO
+    public static final Color TEXT_PRIMARY = new Color(44, 62, 80);
+    public static final Color TEXT_SECONDARY = new Color(127, 140, 141);
+    public static final Color TEXT_MUTED = new Color(149, 165, 166);
+
+    // FONTES
+    public static final Font TITLE_FONT = new Font("Arial", Font.BOLD, 18);
+    public static final Font SUBTITLE_FONT = new Font("Arial", Font.BOLD, 14);
+    public static final Font NORMAL_FONT = new Font("Arial", Font.PLAIN, 12);
+    public static final Font SMALL_FONT = new Font("Arial", Font.PLAIN, 10);
+
+    // DIMENSÕES
+    public static final int BUTTON_WIDTH = 100;
+    public static final int BUTTON_HEIGHT = 35;
+
+    // ESPAÇAMENTOS
+    public static final int PADDING_SMALL = 5;
+    public static final int PADDING_MEDIUM = 10;
+    public static final int PADDING_LARGE = 20;
+
+    // BORDAS
+    public static final int BORDER_RADIUS = 5;
 }
