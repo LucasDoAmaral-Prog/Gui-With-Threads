@@ -1,33 +1,39 @@
 package com.presentation.dialog;
 
+import com.presentation.shared.constants.AnimationConstants;
+import com.presentation.shared.constants.UIConstants;
+
 import javax.swing.*;
 import java.awt.*;
 
 public class ColorConfigDialog extends JDialog {
 
     private JComboBox<String> comboColors;
-    private String selectedScheme;
+    private Integer selectedIndex; // agora armazenamos o índice selecionado
 
-    private static final Dimension DIALOG_SIZE = new Dimension(300, 150);
+    private static final Dimension DIALOG_SIZE = new Dimension(350, 150);
 
-    public ColorConfigDialog(JFrame parent, String currentScheme) {
-        super(parent, "Selecionar Esquema de Cores", true);
+    public ColorConfigDialog(JFrame parent, int currentIndex) {
+        super(parent, AnimationConstants.COLOR_CONFIG_DIALOG_TITLE, true);
 
-        comboColors = new JComboBox<>(new String[]{"PASTEL", "NATURE", "WARM"});
-        comboColors.setSelectedItem(currentScheme);
-        comboColors.setPreferredSize(new Dimension(150, 25));
+        // ComboBox com todas as cores disponíveis
+        comboColors = new JComboBox<>(AnimationConstants.COLOR_OPTIONS);
+        comboColors.setSelectedIndex(currentIndex); // seleciona pelo índice
+        comboColors.setPreferredSize(new Dimension(180, 25));
 
-        JButton okButton = new JButton("OK");
+        // Botão OK
+        JButton okButton = new JButton(UIConstants.BTN_OK);
         okButton.setPreferredSize(new Dimension(100, 25));
         okButton.addActionListener(e -> {
-            selectedScheme = (String) comboColors.getSelectedItem();
+            selectedIndex = comboColors.getSelectedIndex(); // pega índice selecionado
             dispose();
         });
 
-        JButton cancelButton = new JButton("Cancelar");
+        // Botão Cancelar
+        JButton cancelButton = new JButton(UIConstants.BTN_CANCEL);
         cancelButton.setPreferredSize(new Dimension(100, 25));
         cancelButton.addActionListener(e -> {
-            selectedScheme = null;
+            selectedIndex = null; // não altera
             dispose();
         });
 
@@ -40,7 +46,7 @@ public class ColorConfigDialog extends JDialog {
 
         gbc.gridx = 0;
         gbc.gridy = 0;
-        centerPanel.add(new JLabel("Escolha o esquema de cores:"), gbc);
+        centerPanel.add(new JLabel(AnimationConstants.COLOR_CONFIG_DIALOG_TEXT), gbc);
 
         gbc.gridx = 1;
         centerPanel.add(comboColors, gbc);
@@ -59,7 +65,8 @@ public class ColorConfigDialog extends JDialog {
         setLocationRelativeTo(parent);
     }
 
-    public String getSelectedScheme() {
-        return selectedScheme;
+    // Retorna índice selecionado
+    public Integer getSelectedIndex() {
+        return selectedIndex;
     }
 }

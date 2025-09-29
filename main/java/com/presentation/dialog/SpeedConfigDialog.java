@@ -1,33 +1,39 @@
 package com.presentation.dialog;
 
+import com.presentation.shared.constants.AnimationConstants;
+import com.presentation.shared.constants.UIConstants;
+
 import javax.swing.*;
 import java.awt.*;
 
 public class SpeedConfigDialog extends JDialog {
 
     private JComboBox<String> comboSpeeds;
-    private String selectedSpeed;
+    private Integer selectedIndex; // agora armazenamos o índice selecionado
 
-    private static final Dimension DIALOG_SIZE = new Dimension(300, 150);
+    private static final Dimension DIALOG_SIZE = new Dimension(350, 150);
 
-    public SpeedConfigDialog(JFrame parent, String currentSpeed) {
-        super(parent, "Selecionar Velocidade", true);
+    public SpeedConfigDialog(JFrame parent, int currentIndex) {
+        super(parent, AnimationConstants.SPEED_CONFIG_DIALOG_TITLE, true);
 
-        comboSpeeds = new JComboBox<>(new String[]{"SLOW", "MEDIUM", "FAST"});
-        comboSpeeds.setSelectedItem(currentSpeed);
-        comboSpeeds.setPreferredSize(new Dimension(150, 25));
+        // ComboBox com todas as velocidades disponíveis
+        comboSpeeds = new JComboBox<>(AnimationConstants.SPEED_OPTIONS);
+        comboSpeeds.setSelectedIndex(currentIndex); // seleciona pelo índice
+        comboSpeeds.setPreferredSize(new Dimension(180, 25));
 
-        JButton okButton = new JButton("OK");
+        // Botão OK
+        JButton okButton = new JButton(UIConstants.BTN_OK);
         okButton.setPreferredSize(new Dimension(100, 25));
         okButton.addActionListener(e -> {
-            selectedSpeed = (String) comboSpeeds.getSelectedItem();
+            selectedIndex = comboSpeeds.getSelectedIndex(); // pega índice selecionado
             dispose();
         });
 
-        JButton cancelButton = new JButton("Cancelar");
+        // Botão Cancelar
+        JButton cancelButton = new JButton(UIConstants.BTN_CANCEL);
         cancelButton.setPreferredSize(new Dimension(100, 25));
         cancelButton.addActionListener(e -> {
-            selectedSpeed = null;
+            selectedIndex = null; // não altera
             dispose();
         });
 
@@ -40,7 +46,7 @@ public class SpeedConfigDialog extends JDialog {
 
         gbc.gridx = 0;
         gbc.gridy = 0;
-        centerPanel.add(new JLabel("Escolha a velocidade:"), gbc);
+        centerPanel.add(new JLabel(AnimationConstants.SPEED_CONFIG_DIALOG_TEXT), gbc);
 
         gbc.gridx = 1;
         centerPanel.add(comboSpeeds, gbc);
@@ -50,6 +56,7 @@ public class SpeedConfigDialog extends JDialog {
         buttonPanel.add(okButton);
         buttonPanel.add(cancelButton);
 
+        // Layout do Dialog
         setLayout(new BorderLayout());
         add(centerPanel, BorderLayout.CENTER);
         add(buttonPanel, BorderLayout.SOUTH);
@@ -59,7 +66,8 @@ public class SpeedConfigDialog extends JDialog {
         setLocationRelativeTo(parent);
     }
 
-    public String getSelectedSpeed() {
-        return selectedSpeed;
+    // Retorna índice selecionado
+    public Integer getSelectedIndex() {
+        return selectedIndex;
     }
 }
