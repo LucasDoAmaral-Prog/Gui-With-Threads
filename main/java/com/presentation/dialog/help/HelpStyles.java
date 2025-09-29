@@ -92,4 +92,69 @@ public final class HelpStyles {
         label.setForeground(TEXT_COLOR);
         return label;
     }
+    public static JLabel createImageLabel(String imagePath, String caption, int maxWidth) {
+        try {
+            // AJUSTAR O CAMINHO PARA COM/MAIN
+            java.net.URL imageURL = HelpStyles.class.getResource(imagePath);
+            if (imageURL != null) {
+                ImageIcon originalIcon = new ImageIcon(imageURL);
+                Image img = originalIcon.getImage();
+
+                // Redimensionar mantendo proporção
+                int originalWidth = originalIcon.getIconWidth();
+                int originalHeight = originalIcon.getIconHeight();
+                int newWidth = Math.min(originalWidth, maxWidth);
+                int newHeight = (originalHeight * newWidth) / originalWidth;
+
+                Image scaledImg = img.getScaledInstance(newWidth, newHeight, Image.SCALE_SMOOTH);
+                JLabel imageLabel = new JLabel(new ImageIcon(scaledImg));
+                imageLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+                // Adicionar caption se fornecido
+                if (caption != null && !caption.isEmpty()) {
+                    imageLabel.setBorder(BorderFactory.createTitledBorder(
+                            BorderFactory.createLineBorder(LIGHT_GRAY, 1),
+                            caption,
+                            0, 0,
+                            CONTENT_FONT,
+                            TEXT_COLOR
+                    ));
+                }
+
+                return imageLabel;
+            }
+        } catch (Exception e) {
+            System.err.println("Erro ao carregar imagem: " + imagePath);
+        }
+
+        // Retorna label placeholder se imagem não carregou
+        JLabel placeholder = new JLabel("📷 " + (caption != null ? caption : "Imagem"));
+        placeholder.setFont(CONTENT_FONT);
+        placeholder.setForeground(Color.GRAY);
+        placeholder.setAlignmentX(Component.CENTER_ALIGNMENT);
+        placeholder.setBorder(BorderFactory.createDashedBorder(Color.LIGHT_GRAY, 2, 5, 5, true));
+        return placeholder;
+    }
+    public static JPanel createImageSection(String title, String imagePath, String caption) {
+        JPanel section = new JPanel();
+        section.setLayout(new BoxLayout(section, BoxLayout.Y_AXIS));
+        section.setBackground(Color.WHITE);
+
+        // Título da seção
+        if (title != null && !title.isEmpty()) {
+            JLabel titleLabel = new JLabel(title);
+            titleLabel.setFont(SECTION_FONT);
+            titleLabel.setForeground(PRIMARY_COLOR);
+            titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+            section.add(titleLabel);
+            section.add(Box.createVerticalStrut(10));
+        }
+
+        // Imagem
+        JLabel imageLabel = createImageLabel(imagePath, caption, 400);
+        section.add(imageLabel);
+
+        return section;
+    }
+
 }

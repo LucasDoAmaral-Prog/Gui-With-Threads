@@ -145,4 +145,23 @@ public final class HelpContent {
             this.items = items;
         }
     }
+
+    public static class HelpImage {
+        public final String imagePath;
+        public final String caption;
+
+        public HelpImage(String imagePath, String caption) {
+            this.imagePath = imagePath;
+            this.caption = caption;
+        }
+    }
+
+    public static List<HelpImage> getShortcutImages() {
+        return Arrays.asList(
+                new HelpImage("/images/help/shortcuts/alt-a-menu.png", "Menu Arquivo (Alt+A)"),
+                new HelpImage("/images/help/shortcuts/alt-c-menu.png", "Menu Configuração (Alt+C)"),
+                new HelpImage("/images/help/shortcuts/alt-j-menu.png", "Menu Ajuda (Alt+J)")
+        );
+    }
+
 }

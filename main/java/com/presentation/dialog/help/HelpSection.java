@@ -14,6 +14,24 @@ public class HelpSection {
         panel.add(headerPanel);
         panel.add(Box.createVerticalStrut(20));
 
+        panel.add(HelpStyles.createImageSection(
+                "Atalho do Arquivo",
+                "/images/help/shortcuts/alt-a-menu.png",
+                "Principais atalhos do sistema"
+        ));
+        panel.add(HelpStyles.createImageSection(
+                "Atalho da Configuração",
+                "/images/help/shortcuts/alt-c-menu.png",
+                "Principais atalhos do sistema"
+        ));
+        panel.add(HelpStyles.createImageSection(
+                "Atalho para Ajuda",
+                "/images/help/shortcuts/alt-j-menu.png",
+                "Principais atalhos do sistema"
+        ));
+
+        panel.add(Box.createVerticalStrut(20));
+
         for (HelpContent.ShortcutGroup group : HelpContent.getShortcuts()) {
             JPanel titlePanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
             titlePanel.setBackground(Color.WHITE);
@@ -36,6 +54,7 @@ public class HelpSection {
     }
 
     public static JScrollPane createGettingStartedSection() {
+        // Manter como está - sem modificações
         JPanel panel = HelpStyles.createHelpContentPanel();
 
         JPanel headerPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
@@ -66,6 +85,24 @@ public class HelpSection {
         headerPanel.setBackground(Color.WHITE);
         headerPanel.add(HelpStyles.createHelpHeader("⚙️ FUNCIONALIDADES DETALHADAS", HelpStyles.INFO_COLOR));
         panel.add(headerPanel);
+        panel.add(Box.createVerticalStrut(20));
+
+        // ADICIONAR IMAGEM DAS FEATURES
+        panel.add(HelpStyles.createImageSection(
+                "Interface Principal.",
+                "/images/help/features/animation-running.png",
+                "Visão geral das funcionalidades disponíveis"
+        ));
+        panel.add(HelpStyles.createImageSection(
+                "Interface para selicionar Arquivo.",
+                "/images/help/features/text-display.png",
+                "Visão geral das funcionalidades disponíveis"
+        ));
+        panel.add(HelpStyles.createImageSection(
+                "Interface com arquivo aberto sucedido.",
+                "/images/help/features/status-bar.png",
+                "Visão geral das funcionalidades disponíveis"
+        ));
         panel.add(Box.createVerticalStrut(20));
 
         for (HelpContent.FeatureHelp feature : HelpContent.getFeatures()) {
@@ -106,6 +143,14 @@ public class HelpSection {
         panel.add(headerPanel);
         panel.add(Box.createVerticalStrut(20));
 
+        // ADICIONAR IMAGEM DO ERROR MESSAGE
+        panel.add(HelpStyles.createImageSection(
+                "Exemplo de Erro Comum",
+                "/images/help/troubleshooting/error-message.png",
+                "Mensagem de erro: Arquivo vazio ou inválido"
+        ));
+        panel.add(Box.createVerticalStrut(20));
+
         for (String troubleItem : HelpContent.getTroubleshooting()) {
             JPanel itemPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
             itemPanel.setBackground(Color.WHITE);
@@ -127,6 +172,7 @@ public class HelpSection {
     }
 
     public static JScrollPane createTipsSection() {
+        // Manter como está - sem modificações
         JPanel panel = HelpStyles.createHelpContentPanel();
 
         JPanel headerPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
