@@ -22,4 +22,10 @@ public class UIConstants {
     public static final int TEXT_AREA_TITLE_HORIZONTAL_BORDER = 10;
     public static final int TEXT_AREA_TITLE_VERTICAL_BORDER = 0;
 
+    // Diversos
+    public static final String BTN_CANCEL = "Cancelar";
+    public static final String BTN_OK = "OK";
+    public static final String BTN_YES = "Sim";
+    public static final String BTN_NO = "NO";
+
 }

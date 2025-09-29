@@ -20,6 +20,24 @@ public class FileController {
         this.fileService = new FileService();
     }
 
+    public void openFileWithThread(File selectedFile, java.util.function.BiConsumer<String, Exception> callback) {
+        new javax.swing.SwingWorker<String, Void>() {
+            @Override
+            protected String doInBackground() throws Exception {
+                return fileService.openFile(selectedFile);
+            }
+            @Override
+            protected void done() {
+                try {
+                    String conteudo = get();
+                    callback.accept(conteudo, null);
+                } catch (Exception e) {
+                    callback.accept(null, e);
+                }
+            }
+        }.execute();
+    }
+
     public String openFile() throws FileReadException, DirectoryNotFoundException, FileNotSelectedException {
         // Possibilita a classe extrair o caminho do diretório inicial de dentro da 'Resources root'
         String initialDir = FileConstants.class
@@ -45,4 +63,7 @@ public class FileController {
     }
 
 
+    public File getCurrentFile() {
+        return currentFile;
+    }
 }
