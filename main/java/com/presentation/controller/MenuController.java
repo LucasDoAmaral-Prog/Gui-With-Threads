@@ -132,9 +132,4 @@ public class MenuController extends MenuListener {
         mainView.setStatus("Informações detalhadas sobre o projeto exibidas");
     }
 
-
-<<<<<<< HEAD
-
-=======
->>>>>>> 956ba3a36cd14008ea07628867e2f615a9683d81
 }
